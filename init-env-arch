@@ -1,0 +1,19 @@
+#!/bin/bash
+
+export CONF_ANDROID_ARCH=$1
+
+case $CONF_ANDROID_ARCH in
+
+    arm64-v8a)
+        export CONF_COMPILER_ARCH="aarch64"
+    ;;
+
+    *)
+        export CONF_COMPILER_ARCH="$CONF_ANDROID_ARCH"
+    ;;
+esac
+
+export CC="${CONF_COMPILER_ARCH}-linux-android${CONF_ANDROID_LEVEL}-clang"
+export CXX="${CONF_COMPILER_ARCH}-linux-android${CONF_ANDROID_LEVEL}-clang++"
+
+export WX_CONFHOST="${CONF_COMPILER_ARCH}-linux-android${CONF_ANDROID_LEVEL}"

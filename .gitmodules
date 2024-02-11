@@ -1,0 +1,4 @@
+[submodule "wxWidgets"]
+	path = wxWidgets
+	url = https://github.com/dsa-t/wxWidgets.git
+	branch = android-patches

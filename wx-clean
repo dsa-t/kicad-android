@@ -1,0 +1,13 @@
+#!/bin/bash
+
+mkdir -p ${WX_ROOT}
+
+git submodule update --init
+
+pushd ${WX_ROOT}
+
+#git submodule deinit --all -f
+git submodule update --init --recursive
+#rm -rf buildqt5droid_*/
+
+popd
