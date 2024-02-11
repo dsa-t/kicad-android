@@ -1,0 +1,34 @@
+#!/bin/bash
+
+set -e
+
+. init-env-arch $1
+
+pushd gsoc2014/build
+
+mkdir -p ./android/assets/
+mkdir -p ./android/libs/${CONF_ANDROID_ARCH}/
+
+all_deps="$( \
+    ${NDKDEPENDS} \
+    -L "${CONF_SYSROOT_USR}/lib" \
+    -L "${QT5_CUSTOM_DIR}/lib" \
+    -L ${ANDROID_TOOLCHAIN_PATH}/sysroot/usr/lib${CONF_COMPILER_ARCH}-linux-android/ \
+    "./android/libs/${CONF_ANDROID_ARCH}/libgsoc2014_${CONF_ANDROID_ARCH}.so" \
+)"
+
+echo All Dependencies: ${all_deps}
+
+for dep_name in $all_deps
+do
+    lib_path="${CONF_SYSROOT_USR}/lib/${dep_name}"
+    bin_path="${CONF_SYSROOT_USR}/bin/${dep_name}"
+    qt_path="${QT5_CUSTOM_DIR}/lib/${dep_name}"
+
+    [ -f ${lib_path} ] && cp -v ${lib_path} ./android/libs/${CONF_ANDROID_ARCH}/
+    [ -f ${bin_path} ] && cp -v ${bin_path} ./android/libs/${CONF_ANDROID_ARCH}/
+    [ -f ${qt_path} ] && cp -v ${qt_path} ./android/libs/${CONF_ANDROID_ARCH}/
+done
+
+
+popd

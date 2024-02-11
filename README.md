@@ -1,4 +1,4 @@
-A minimal set of scripts to build wxWidgets with wxQt on Android, without OpenGL canvas.
+A minimal set of scripts to build wxWidgets with wxQt on Android using CMake and qmake, without OpenGL canvas.
 
 # Requirements
 
@@ -7,6 +7,7 @@ A minimal set of scripts to build wxWidgets with wxQt on Android, without OpenGL
 - [Android NDK r21e](https://github.com/android/ndk/wiki/Unsupported-Downloads#r21e) (newer versions won't work)
 - Android 9+ (API Level 28) Emulator or Device. xlocale support doesn't work on lower versions.
 - QT 5.15.2
+- CMake
 
 Use [aqt](https://github.com/miurahr/aqtinstall) to install QT:
 

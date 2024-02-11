@@ -9,7 +9,6 @@ QT       += core gui widgets opengl svg testlib
 TARGET = gsoc2014
 TEMPLATE = app
 
-USE_STATIC = $$(CONF_BUILD_STATIC)
 CONF_ANDROID_ARCHES = $$(CONF_ANDROID_ARCHES)
 
 message(ARCH $$QT_ARCH)
@@ -28,7 +27,7 @@ ANDROID_ARCH_LIB=$$QT_ARCH
 WX_VERSION = $$(WX_VERSION)
 
 WX_CONFHOST = $${CONF_COMPILER_ARCH}-linux-android$$(CONF_ANDROID_LEVEL)
-WX_LIB_DIR = $$(WX_ROOT)/buildqt5droid_$${ANDROID_ARCH_LIB}/lib
+WX_LIB_DIR = $$(WX_ROOT)/build_$${ANDROID_ARCH_LIB}/lib
 
 #WX_CONFHOST = $$(WX_CONFHOST)
 #WX_LIB_DIR = $$(WX_LIB_DIR)
@@ -45,24 +44,13 @@ INCLUDEPATH += $${GL4ES_ROOT}/include
 INCLUDEPATH += $${WX_INC_DIR}
 LIBS += -L$${WX_LIB_DIR}/
 
-equals(USE_STATIC, "1") {
-    INCLUDEPATH += $${WX_LIB_DIR}/wx/include/$${WX_CONFHOST}-qt-unicode-static-$${WX_VERSION}
+INCLUDEPATH += $${WX_LIB_DIR}/wx/include/qt-unicode-$${WX_VERSION}
 
-    LIBS += $${WX_LIB_DIR}/libwx_qtu_qa-$${WX_VERSION}-$${WX_CONFHOST}.a
-    LIBS += $${WX_LIB_DIR}/libwx_qtu_adv-$${WX_VERSION}-$${WX_CONFHOST}.a
-    LIBS += $${WX_LIB_DIR}/libwx_qtu_core-$${WX_VERSION}-$${WX_CONFHOST}.a
-    LIBS += $${WX_LIB_DIR}/libwxpng-$${WX_VERSION}-$${WX_CONFHOST}.a 
-    LIBS += $${WX_LIB_DIR}/libwx_baseu-$${WX_VERSION}-$${WX_CONFHOST}.a
-
-} else {
-    INCLUDEPATH += $${WX_LIB_DIR}/wx/include/$${WX_CONFHOST}-qt-unicode-$${WX_VERSION}
-
-    unix {
-        SHARED_LIB_FILES = $$files($${WX_LIB_DIR}/*_$${ANDROID_ARCH_LIB}.so)
-        for(FILE, SHARED_LIB_FILES) {
-            BASENAME = $$basename(FILE)
-            LIBS += -l$$str_member($$BASENAME, 3, -4)
-        }
+unix {
+    SHARED_LIB_FILES = $$files($${WX_LIB_DIR}/*.so)
+    for(FILE, SHARED_LIB_FILES) {
+        BASENAME = $$basename(FILE)
+        LIBS += -l$$str_member($$BASENAME, 3, -4)
     }
 }
 

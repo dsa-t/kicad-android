@@ -1,0 +1,24 @@
+#!/bin/bash
+
+set -e
+
+. init-env
+
+rm -rf gsoc2014/build/
+
+pushd gsoc2014
+./build.sh
+popd 
+
+
+for android_arch in $CONF_ANDROID_ARCHES; do
+    ./app-copy-libs-arch $android_arch
+done
+
+
+pushd gsoc2014/build
+
+androiddeployqt --input android-gsoc2014-deployment-settings.json --output android --android-platform $ANDROID_NDK_PLATFORM --install
+adb shell monkey -p org.qtproject.example.gsoc2014 1
+
+popd

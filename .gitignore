@@ -1,7 +1,7 @@
 # Temp directories
-/.wx-libs-tmp/
 /qt/*
 /wxWidgets/*
+/sysroot/*
 
 # Compiled Object files
 *.slo
