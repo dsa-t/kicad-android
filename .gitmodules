@@ -1,4 +1,24 @@
 [submodule "wxWidgets"]
 	path = wxWidgets
 	url = https://github.com/dsa-t/wxWidgets.git
-	branch = android-patches
+	branch = wxqt-kicad
+[submodule "kicad"]
+	path = kicad
+	url = https://gitlab.com/dsa-t/kicad.git
+	branch = wxqt-android
+[submodule "Boost-for-Android"]
+	path = Boost-for-Android
+	url = https://github.com/dsa-t/Boost-for-Android.git
+	branch = wx-tweaks
+[submodule "gl4es-114-extra"]
+	path = gl4es-114-extra
+	url = https://github.com/dsa-t/gl4es-114-extra.git
+	branch = wx
+[submodule "openssl-curl-android"]
+	path = openssl-curl-android
+	url = https://github.com/dsa-t/openssl-curl-android.git
+	branch = wx-tweaks
+[submodule "glu"]
+	path = glu
+	url = https://gitlab.freedesktop.org/mesa/glu.git
+	branch = a2b96c7bba8db8fec3e02fb4227a7f7b02cabad1

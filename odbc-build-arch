@@ -1,0 +1,27 @@
+#!/bin/bash
+
+set -e
+
+. init-env-arch $1
+
+export CC="${CONF_COMPILER_ARCH}-linux-android${CONF_ANDROID_LEVEL}-clang"
+export CXX="${CONF_COMPILER_ARCH}-linux-android${CONF_ANDROID_LEVEL}-clang++"
+
+pushd unixODBC
+
+build_dir=build_${CONF_ANDROID_ARCH}
+
+mkdir -p "$build_dir"
+pushd "$build_dir"
+
+../configure \
+    --host="${WX_CONFHOST}" \
+    --prefix="${CONF_SYSROOT_USR}"
+
+make -j24 install
+
+#cp -r .output/* ${CONF_SYSROOT_USR}/
+
+popd
+
+popd

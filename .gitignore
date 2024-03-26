@@ -1,6 +1,10 @@
 # Temp directories
 /qt/*
 /wxWidgets/*
+/OCCT/*
+/cairo/*
+/libgit2/*
+/ngspice/*
 /sysroot/*
 
 # Compiled Object files

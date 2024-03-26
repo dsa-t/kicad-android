@@ -1,0 +1,47 @@
+#!/bin/bash
+
+set -e
+
+. init-env-arch $1
+
+pushd kicad
+
+mkdir -p build_${CONF_ANDROID_ARCH}
+pushd build_${CONF_ANDROID_ARCH}
+
+cp --no-clobber -r ../../kicad-grammar/* ./
+
+CPPFLAGS="-I/home/alex/kidroid/ghc"
+LDFLAGS="-fuse-ld=mold -llog -rdynamic -flat_namespace"
+
+${QT_CUSTOM_DIR}/bin/qt-cmake \
+    -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake \
+    -DCMAKE_INSTALL_PREFIX=${CONF_SYSROOT_USR} \
+    -DANDROID_SDK_ROOT="${ANDROID_SDK_ROOT}" \
+    -DANDROID_NDK_ROOT="${ANDROID_NDK_ROOT}" \
+    -DANDROID_PLATFORM=${ANDROID_NDK_PLATFORM} \
+    -DANDROID_ABI=${CONF_ANDROID_ARCH} \
+    -DANDROID_SDK_BUILD_TOOLS_REVISION=34.0.0 \
+    -DCMAKE_BUILD_TYPE="Debug" \
+    -DCMAKE_FIND_ROOT_PATH="${CONF_SYSROOT_ARCH};${QT_CUSTOM_DIR}" \
+    -DCMAKE_EXE_LINKER_FLAGS="${LDFLAGS}" \
+    -DCMAKE_MODULE_LINKER_FLAGS="${LDFLAGS}" \
+    -DCMAKE_SHARED_LINKER_FLAGS="${LDFLAGS}" \
+    -DCMAKE_C_FLAGS="${CPPFLAGS}" \
+    -DCMAKE_CXX_FLAGS="${CPPFLAGS}" \
+    -DKICAD_SCRIPTING_WXPYTHON=OFF \
+    -DKICAD_BUILD_QA_TESTS=OFF \
+    -DKICAD_USE_EGL=OFF \
+    -DKICAD_USE_WXQT=ON \
+    -DKICAD_USE_GL4ES=ON \
+    -DBoost_COMPILER=clang \
+    -DCMAKE_FIND_DEBUG_MODE=OFF \
+    ..
+
+cmake --build . -j 24 --target install/strip
+
+#cp -r .output/* ${CONF_SYSROOT_USR}/
+
+popd
+
+popd

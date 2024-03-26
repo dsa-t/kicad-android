@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e
+
+. init-env
+
+pushd $GL4ES_ROOT
+
+$ANDROID_NDK_ROOT/ndk-build -j24 NDK_PROJECT_PATH=. APP_BUILD_SCRIPT=Android.mk APP_PLATFORM=android-28 || exit
+
+for android_arch in $CONF_ANDROID_ARCHES; do
+    mkdir -p ${CONF_SYSROOT}/${android_arch}/usr/lib/
+    mkdir -p ${CONF_SYSROOT}/${android_arch}/usr/include/
+
+    cp -r libs/${android_arch}/* ${CONF_SYSROOT}/${android_arch}/usr/lib/
+    cp -r include/* ${CONF_SYSROOT}/${android_arch}/usr/include
+done
+
+popd

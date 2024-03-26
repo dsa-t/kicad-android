@@ -1,0 +1,42 @@
+# SPDX-License-Identifier: MIT
+# Copyright © 2021 Intel Corporation
+
+project(
+  'glu',
+  ['c', 'cpp'],
+  version : '9.0.3',
+  meson_version : '>= 0.52.0',
+  license : 'SGI-B-1.1 AND SGI-B-2.0 AND MIT',
+  default_options : ['default_library=both', 'b_ndebug=if-release']
+)
+
+if get_option('debug')
+  add_project_arguments('-DDEBUG', language : ['c', 'cpp'])
+endif
+
+cc = meson.get_compiler('c')
+cpu_f = host_machine.cpu_family()
+
+lib_arch=cpu_f
+if lib_arch == 'aarch64'
+  lib_arch = 'arm64-v8a'
+endif
+
+dep_gl = cc.find_library('GL', dirs: '/home/alex/kidroid/gl4es-114-extra/libs/' + lib_arch)
+
+inc_include = include_directories(['include', '/home/alex/kidroid/gl4es-114-extra/include'])
+
+subdir('src')
+
+install_headers(
+  'include/GL/glu.h',
+  subdir : 'GL',
+)
+
+pkgconf = import('pkgconfig')
+pkgconf.generate(
+  libglu,
+  name : 'glu',
+  description : 'Mesa OpenGL Utility Library',
+  #requires: dep_gl
+)

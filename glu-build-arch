@@ -1,0 +1,40 @@
+#!/bin/bash
+
+set -e
+
+. init-env-arch $1
+
+export LIBRARY_PATH="/home/alex/kidroid/gl4es-114-extra/libs/${CONF_ANDROID_ARCH}"
+
+pushd glu
+
+cat > android-cross-file-${CONF_ANDROID_ARCH}.txt <<EOF
+[constants]
+ndk_path    = '${ANDROID_NDK_ROOT}'
+toolchain   = '${ANDROID_TOOLCHAIN_PATH}/bin/${CONF_COMPILER_ARCH}-linux-android'
+api         = '${CONF_ANDROID_LEVEL}'
+
+[host_machine]
+system      = 'android'
+cpu_family  = '${CONF_COMPILER_ARCH}'
+cpu         = '${CONF_COMPILER_ARCH}'
+endian      = 'little'
+
+[properties]
+sys_root        = ndk_path + '/sysroot'
+c_link_args     = ['-fuse-ld=gold']
+cpp_link_args   = ['-fuse-ld=gold']
+
+[binaries]
+c           = toolchain + api + '-clang'
+cpp         = toolchain + api + '-clang++'
+strip       = toolchain + '-strip'
+EOF
+
+meson setup --prefix / --reconfigure -Dgl_provider=gl --cross-file android-cross-file-${CONF_ANDROID_ARCH}.txt build_${CONF_ANDROID_ARCH}
+meson compile -C build_${CONF_ANDROID_ARCH}
+meson install --destdir .output -C build_${CONF_ANDROID_ARCH}
+
+cp -r build_${CONF_ANDROID_ARCH}/.output/* ${CONF_SYSROOT_USR}/
+
+popd

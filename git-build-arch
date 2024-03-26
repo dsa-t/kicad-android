@@ -1,0 +1,34 @@
+#!/bin/bash
+
+set -e
+
+. init-env-arch $1
+
+pushd libgit2
+
+mkdir -p build_${CONF_ANDROID_ARCH}
+pushd build_${CONF_ANDROID_ARCH}
+
+export CPPFLAGS="-I${CONF_SYSROOT_USR}/include"
+export CXXFLAGS="${CPPFLAGS}"
+export CFLAGS="${CPPFLAGS} -Dinline=__inline__"
+
+cmake --fresh \
+    -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake \
+    -DCMAKE_INSTALL_PREFIX=.output \
+    -DANDROID_PLATFORM=${ANDROID_NDK_PLATFORM} \
+    -DANDROID_ABI=${CONF_ANDROID_ARCH} \
+    -DCMAKE_FIND_ROOT_PATH=${CONF_SYSROOT_ARCH} \
+    -DCMAKE_C_FLAGS="${CFLAGS}" \
+    -DCMAKE_CXX_FLAGS="${CXXFLAGS}" \
+    -DBUILD_TESTS=OFF \
+    -DUSE_HTTPS=OpenSSL \
+    ..
+
+cmake --build . -j 24 --target install
+
+cp -r .output/* ${CONF_SYSROOT_USR}/
+
+popd
+
+popd

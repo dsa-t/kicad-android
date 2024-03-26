@@ -13,6 +13,17 @@ case $CONF_ANDROID_ARCH in
     ;;
 esac
 
+#export CC="${CONF_COMPILER_ARCH}-linux-android${CONF_ANDROID_LEVEL}-clang"
+#export CXX="${CONF_COMPILER_ARCH}-linux-android${CONF_ANDROID_LEVEL}-clang++"
+#export AR="${CONF_COMPILER_ARCH}-linux-android-ar"
+#export AS="${CONF_COMPILER_ARCH}-linux-android-as"
+#export LD=${CC}
+#export RANLIB="${CONF_COMPILER_ARCH}-linux-android-ranlib"
+#export STRIP="${CONF_COMPILER_ARCH}-linux-android-strip"
+#export OBJDUMP="${CONF_COMPILER_ARCH}-linux-android-objdump"
+
+export QT_CUSTOM_DIR="/media/alex/Build/qt6-android/install_${CONF_ANDROID_ARCH}"
+
 export WX_CONFHOST="${CONF_COMPILER_ARCH}-linux-android${CONF_ANDROID_LEVEL}"
 
 export CONF_SYSROOT_ARCH="${CONF_SYSROOT}/${CONF_ANDROID_ARCH}"

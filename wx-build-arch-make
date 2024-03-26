@@ -1,0 +1,66 @@
+#!/bin/bash
+
+set -e
+
+. init-env-arch $1
+
+WX_BUILDDIR_ARCH=${WX_ROOT}/buildqt5droid_${CONF_ANDROID_ARCH}
+WX_LIB_DIR=${WX_BUILDDIR_ARCH}/lib
+
+pushd ${WX_ROOT}
+
+mkdir -p $WX_BUILDDIR_ARCH
+pushd $WX_BUILDDIR_ARCH
+
+mkdir -p $WX_LIB_DIR
+
+# Symlink Qt libs for arch
+for libname in Qt5Core Qt5Widgets Qt5Gui Qt5OpenGL Qt5Test; do
+    ln -f -s ${QT5_CUSTOM_DIR}/lib/lib${libname}_${CONF_ANDROID_ARCH}.so ${WX_LIB_DIR}/lib${libname}.so
+done
+
+../../wx-configure
+make -j24
+
+
+if [ $CONF_BUILD_STATIC != "1" ]; then
+    # Fix lib names
+    for file in $WX_LIB_DIR/*.so; do
+        name="$(basename "${file}")"
+        if [[ $name == *_$CONF_ANDROID_ARCH.so ]]; then continue; fi
+        if [[ $name == libQt*.so ]]; then continue; fi
+
+        dir="$(dirname "${file}")"
+        base=${name%-$WX_CONFHOST.so}
+        
+        targetso="${dir}/${base}_${CONF_ANDROID_ARCH}.so"
+        cp $file $targetso
+        echo "Creating ${targetso}"
+    done
+
+    for file in $WX_LIB_DIR/*_${CONF_ANDROID_ARCH}.so; do
+        name="$(basename "${file}")"
+        dir="$(dirname "${file}")"
+        base=${name%.so}
+        
+        origsoname="$($PATCHELF --print-soname "${file}")"
+
+        echo "Patching ${file} ${origsoname} -> $name"
+
+        $PATCHELF --set-soname $name $file
+
+        for file2 in $WX_LIB_DIR/*_${CONF_ANDROID_ARCH}.so; do
+
+            $PATCHELF --replace-needed $origsoname $name $file2
+
+        done
+    done
+fi
+
+popd
+
+cp ${WX_LIB_DIR}/*_${CONF_ANDROID_ARCH}.so ${CONF_SYSROOT_USR}/lib/
+cp -r ${WX_LIB_DIR}/wx ${CONF_SYSROOT_USR}/lib/
+cp -r ./include/wx ${CONF_SYSROOT_USR}/include
+
+popd

@@ -4,45 +4,50 @@ set -e
 
 . init-env-arch $1
 
-WX_BUILDDIR_ARCH=${WX_ROOT}/build_${CONF_ANDROID_ARCH}
-WX_LIB_DIR=${WX_BUILDDIR_ARCH}/lib
-
 pushd wxWidgets
 
 mkdir -p build_${CONF_ANDROID_ARCH}
 pushd build_${CONF_ANDROID_ARCH}
 
+#-I${CONF_SYSROOT_USR}/include
 export CPPFLAGS=""
 export CXXFLAGS="${CPPFLAGS}"
 export CFLAGS="${CPPFLAGS}"
 export LDFLAGS="-llog -Wl,-rpath-link=${CONF_SYSROOT_USR}/lib"
 
-cmake --fresh \
-    -DCMAKE_TOOLCHAIN_FILE="${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake" \
-    -DCMAKE_INSTALL_PREFIX="${CONF_SYSROOT_USR}" \
-    -DANDROID_PLATFORM="${ANDROID_NDK_PLATFORM}" \
-    -DANDROID_ABI="${CONF_ANDROID_ARCH}" \
-    -DCMAKE_FIND_ROOT_PATH="${CONF_SYSROOT_ARCH};${QT5_CUSTOM_DIR}" \
-    -DCMAKE_FIND_DEBUG_MODE=ON \
+cmake \
+    -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake \
+    -DCMAKE_INSTALL_PREFIX=${CONF_SYSROOT_USR} \
+    -DANDROID_PLATFORM=${ANDROID_NDK_PLATFORM} \
+    -DANDROID_ABI=${CONF_ANDROID_ARCH} \
+    -DCMAKE_FIND_ROOT_PATH="${CONF_SYSROOT_ARCH};${QT_CUSTOM_DIR}" \
     -DCMAKE_EXE_LINKER_FLAGS="${LDFLAGS}" \
     -DCMAKE_MODULE_LINKER_FLAGS="${LDFLAGS}" \
     -DCMAKE_SHARED_LINKER_FLAGS="${LDFLAGS}" \
     -DCMAKE_C_FLAGS="${CFLAGS}" \
     -DCMAKE_CXX_FLAGS="${CXXFLAGS}" \
     -DwxBUILD_TOOLKIT=qt \
+    -DwxBUILD_TESTS=OFF \
+    -DwxUSE_UIACTIONSIMULATOR=OFF \
+    -DwxUSE_SOUND=OFF \
+    -DwxUSE_STACKWALKER=OFF \
     -DwxUSE_SECRETSTORE=OFF \
     -DwxUSE_LIBICONV=OFF \
+    -DwxUSE_XLOCALE=OFF \
     -DwxUSE_INTL=ON \
-    -DwxUSE_OPENGL=OFF \
-    -DwxUSE_REGEX=OFF \
+    -DwxUSE_OPENGL=ON \
+    -DwxUSE_PRIVATE_FONTS=ON \
+    -DwxUSE_LIBMSPACK=OFF \
+    -DwxUSE_LIBJPEG=builtin \
+    -DwxUSE_LIBPNG=builtin \
+    -DwxUSE_LIBTIFF=builtin \
+    -DCMAKE_FIND_DEBUG_MODE=OFF \
     ..
 
 cmake --build . -j 24 --target install/strip
 
-popd
+#cp --dereference -r .output/* ${CONF_SYSROOT_USR}/
 
-cp ${WX_LIB_DIR}/*.so ${CONF_SYSROOT_USR}/lib/
-cp -r ${WX_LIB_DIR}/wx ${CONF_SYSROOT_USR}/lib/
-cp -r ./include/wx ${CONF_SYSROOT_USR}/include
+popd
 
 popd

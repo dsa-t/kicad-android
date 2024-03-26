@@ -4,21 +4,25 @@ set -e
 
 . init-env
 
-rm -rf gsoc2014/build/
-
-pushd gsoc2014
-./build.sh
-popd 
-
+rm -rf kicadapp/android/
+rm -rf pcbnewapp/android/
 
 for android_arch in $CONF_ANDROID_ARCHES; do
     ./app-copy-libs-arch $android_arch
 done
 
+pushd kicadapp
 
-pushd gsoc2014/build
+#androiddeployqt --input android-kicad-deployment-settings.json --output android --android-platform $ANDROID_NDK_PLATFORM --install
+#adb shell monkey -p org.qtproject.example.kicad 1
 
-androiddeployqt --input android-gsoc2014-deployment-settings.json --output android --android-platform $ANDROID_NDK_PLATFORM --install
-adb shell monkey -p org.qtproject.example.gsoc2014 1
+popd
+
+pushd pcbnewapp
+
+#/usr/local/Qt-6.6.2/bin/androiddeployqt --verbose --input android-pcbnew-deployment-settings.json --output android --android-platform $ANDROID_NDK_PLATFORM --install
+
+/usr/local/Qt-6.6.2/bin/androiddeployqt --input android-pcbnew-deployment-settings.json --output android --install
+adb shell monkey -p org.qtproject.example.pcbnew 1
 
 popd

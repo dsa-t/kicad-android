@@ -1,0 +1,33 @@
+#!/bin/bash
+
+set -e
+
+. init-env-arch $1
+
+pushd openssl_for_ios_and_android
+pushd tools
+
+case $CONF_ANDROID_ARCH in
+
+    arm64-v8a)
+        export CONF_SHORT_ARCH="arm64"
+    ;;
+
+    *)
+        export CONF_SHORT_ARCH="$CONF_ANDROID_ARCH"
+    ;;
+esac
+
+export api=${CONF_ANDROID_LEVEL}
+
+./build-android-openssl.sh ${CONF_SHORT_ARCH}
+./build-android-nghttp2.sh ${CONF_SHORT_ARCH}
+./build-android-curl.sh ${CONF_SHORT_ARCH}
+
+popd
+
+for name in openssl nghttp2 curl; do
+    cp -r output/android/${name}-${CONF_ANDROID_ARCH}/* ${CONF_SYSROOT_USR}/
+done
+
+popd

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+
+if [ $CONF_BUILD_STATIC == "1" ]; then
+    EXTRACONF=--disable-shared
+fi
+
+GL4ES_LIBS_ARCH=$GL4ES_ROOT/libs/$ANDROID_ARCH_LIB
+
+../configure --with-qt --build=x86_64-unknown-linux-gnu --host=$WX_CONFHOST --without-subdirs --disable-arttango --enable-image --disable-dragimage --disable-sockets --with-libcurl=no --with-libtiff=no --disable-utf8 --enable-secretstore=no --disable-sys-libs --with-zlib=sys --with-opengl --enable-detect_sm=no --with-cairo=no --with-libiconv=no $EXTRACONF LDFLAGS="-llog -L${GL4ES_LIBS_ARCH}" CPPFLAGS="-DANDROID -DNO_GL_INCLUDE -I${GL4ES_ROOT}/include"
+
