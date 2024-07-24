@@ -9,6 +9,12 @@ jobs:
   build-android:
     runs-on: ubuntu-22.04
     steps:
+      # Install Java
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
       # Android environment
       - name: Setup Android environment
         uses: android-actions/setup-android@v3
