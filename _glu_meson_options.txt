@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: MIT
+# Copyright © 2021 Intel Corporation
+
+option(
+  'gl_provider',
+  type : 'combo',
+  choices : ['glvnd', 'gl', 'osmesa'],
+  value : 'glvnd',
+  description : 'Which OpenGL to link with'
+)
+
+option(
+  'gl4es_root',
+  type : 'string',
+  description : 'Path to GL4ES root'
+)

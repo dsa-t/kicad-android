@@ -11,7 +11,7 @@ jobs:
     steps:
       # Install Meson
       - name: Install meson
-        run: sudo apt-get install -y meson
+        run: sudo pip3 install --upgrade meson
 
       # Install Java
       - uses: actions/setup-java@v4
@@ -70,11 +70,13 @@ jobs:
           mkdir -p OCCT && curl -L -o - 'https://codeload.github.com/Open-Cascade-SAS/OCCT/tar.gz/refs/tags/V7_8_0' | tar -xz --strip-components=1 -C OCCT
           mkdir -p libgit2 && curl -L -o - 'https://codeload.github.com/libgit2/libgit2/tar.gz/refs/tags/v1.8.0' | tar -xz --strip-components=1 -C libgit2
           mkdir -p ngspice && curl -L -o - 'https://altushost-swe.dl.sourceforge.net/project/ngspice/ng-spice-rework/42/ngspice-42.tar.gz' | tar -xz --strip-components=1 -C ngspice
-          mkdir -p cairo && curl -L -o - 'https://gitlab.freedesktop.org/cairo/cairo/-/archive/1.18.0/cairo-1.18.0.tar.gz' | tar -xz --strip-components=1 -C cairo
+          mkdir -p cairo && curl -L -o - 'https://gitlab.freedesktop.org/cairo/cairo/-/archive/02754405330989198548d1945b3c55566ba0c6b7/cairo-02754405330989198548d1945b3c55566ba0c6b7.tar.gz' | tar -xz --strip-components=1 -C cairo
           mkdir -p unixODBC && curl -L -o - 'ftp://ftp.unixodbc.org/pub/unixODBC/unixODBC-2.3.12.tar.gz' | tar -xz --strip-components=1 -C unixODBC
 
       - name: Patch GLU
-        run: cp _glu_meson.build glu/meson.build
+        run: |
+            cp _glu_meson.build glu/meson.build
+            cp _glu_meson_options.txt glu/meson_options.txt
 
       - name: Build Application
         run: ./all.sh
