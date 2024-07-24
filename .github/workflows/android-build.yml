@@ -13,6 +13,10 @@ jobs:
       - name: Install meson
         run: sudo pip3 install --upgrade meson
 
+      # Install Ninja
+      - name: Install Ninja
+        run: sudo apt-get install -y ninja-build
+
       # Install Java
       - uses: actions/setup-java@v4
         with:

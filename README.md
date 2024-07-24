@@ -8,6 +8,7 @@ A set of scripts to build KiCad on Android using wxQt wxWidgets port.
 - Android 9+ (API Level 28) Emulator or Device. xlocale support doesn't work on lower versions.
 - Qt 6.6.2
 - Meson 1.3.0+
+- Ninja 1.8.2+
 - CMake
 
 # Init repo
