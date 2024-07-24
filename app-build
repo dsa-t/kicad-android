@@ -20,9 +20,9 @@ popd
 
 pushd pcbnewapp
 
-#/usr/local/Qt-6.6.2/bin/androiddeployqt --verbose --input android-pcbnew-deployment-settings.json --output android --android-platform $ANDROID_NDK_PLATFORM --install
+#"${QT_HOST_PATH}"/bin/androiddeployqt --verbose --input android-pcbnew-deployment-settings.json --output android --android-platform $ANDROID_NDK_PLATFORM --install
 
-/usr/local/Qt-6.6.2/bin/androiddeployqt --input android-pcbnew-deployment-settings.json --output android --install
-adb shell monkey -p org.qtproject.example.pcbnew 1
+"${QT_HOST_PATH}"/bin/androiddeployqt --input android-pcbnew-deployment-settings.json --output android --install
+#adb shell monkey -p org.qtproject.example.pcbnew 1
 
 popd

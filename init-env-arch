@@ -22,7 +22,7 @@ esac
 #export STRIP="${CONF_COMPILER_ARCH}-linux-android-strip"
 #export OBJDUMP="${CONF_COMPILER_ARCH}-linux-android-objdump"
 
-export QT_CUSTOM_DIR="/media/alex/Build/qt6-android/install_${CONF_ANDROID_ARCH}"
+export QT_CUSTOM_DIR="${QT_TARGET_BASE}/android_${CONF_ANDROID_ARCH}"
 
 export WX_CONFHOST="${CONF_COMPILER_ARCH}-linux-android${CONF_ANDROID_LEVEL}"
 

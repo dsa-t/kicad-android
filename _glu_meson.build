@@ -22,9 +22,11 @@ if lib_arch == 'aarch64'
   lib_arch = 'arm64-v8a'
 endif
 
-dep_gl = cc.find_library('GL', dirs: '/home/alex/kidroid/gl4es-114-extra/libs/' + lib_arch)
+gl4es_root = get_option('gl_provider')
 
-inc_include = include_directories(['include', '/home/alex/kidroid/gl4es-114-extra/include'])
+dep_gl = cc.find_library('GL', dirs: gl4es_root + '/libs/' + lib_arch)
+
+inc_include = include_directories(['include', gl4es_root + '/include'])
 
 subdir('src')
 

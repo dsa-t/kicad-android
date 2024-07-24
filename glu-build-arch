@@ -4,7 +4,7 @@ set -e
 
 . init-env-arch $1
 
-export LIBRARY_PATH="/home/alex/kidroid/gl4es-114-extra/libs/${CONF_ANDROID_ARCH}"
+export LIBRARY_PATH="${GL4ES_ROOT}/libs/${CONF_ANDROID_ARCH}"
 
 pushd glu
 
@@ -31,7 +31,7 @@ cpp         = toolchain + api + '-clang++'
 strip       = toolchain + '-strip'
 EOF
 
-meson setup --prefix / --reconfigure -Dgl_provider=gl --cross-file android-cross-file-${CONF_ANDROID_ARCH}.txt build_${CONF_ANDROID_ARCH}
+meson setup --verbose --prefix / --reconfigure -Dgl_provider=gl -Dgl4es_root="${GL4ES_ROOT}" --cross-file android-cross-file-${CONF_ANDROID_ARCH}.txt build_${CONF_ANDROID_ARCH}
 meson compile -C build_${CONF_ANDROID_ARCH}
 meson install --destdir .output -C build_${CONF_ANDROID_ARCH}
 
