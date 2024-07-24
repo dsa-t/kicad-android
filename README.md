@@ -26,11 +26,12 @@ mkdir -p cairo && curl -L -o - 'https://gitlab.freedesktop.org/cairo/cairo/-/arc
 mkdir -p unixODBC && curl -L -o - 'ftp://ftp.unixodbc.org/pub/unixODBC/unixODBC-2.3.12.tar.gz' | tar -xz --strip-components=1 -C unixODBC
 ```
 
-# Patch GLU
+# Patch GLU and ngspice
 
 ```bash
 cp _glu_meson.build glu/meson.build
 cp _glu_meson_options.txt glu/meson_options.txt
+cp _ngspice_configure.ac ngspice/configure.ac
 ```
 
 # Qt installation

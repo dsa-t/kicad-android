@@ -4,6 +4,12 @@ set -e
 
 . init-env
 
+pushd ngspice
+
+./autogen.sh
+
+popd
+
 for android_arch in $CONF_ANDROID_ARCHES; do
     ./ngspice-build-arch $android_arch
 done
