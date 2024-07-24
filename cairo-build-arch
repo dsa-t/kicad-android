@@ -21,8 +21,6 @@ endian      = 'little'
 
 [properties]
 sys_root        = ndk_path + '/sysroot'
-c_link_args     = ['-fuse-ld=gold']
-cpp_link_args   = ['-fuse-ld=gold']
 
 [binaries]
 c           = toolchain + api + '-clang'
@@ -30,7 +28,7 @@ cpp         = toolchain + api + '-clang++'
 strip       = toolchain + '-strip'
 EOF
 
-meson setup --prefix / --buildtype release --reconfigure --cross-file android-cross-file-${CONF_ANDROID_ARCH}.txt -Dpixman:a64-neon=disabled build_${CONF_ANDROID_ARCH}
+meson setup --prefix / --buildtype release --cross-file android-cross-file-${CONF_ANDROID_ARCH}.txt -Dpixman:a64-neon=disabled build_${CONF_ANDROID_ARCH}
 meson compile --verbose -C build_${CONF_ANDROID_ARCH}
 meson install --destdir .output -C build_${CONF_ANDROID_ARCH}
 

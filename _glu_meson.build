@@ -22,7 +22,7 @@ if lib_arch == 'aarch64'
   lib_arch = 'arm64-v8a'
 endif
 
-gl4es_root = get_option('gl_provider')
+gl4es_root = get_option('gl4es_root')
 
 dep_gl = cc.find_library('GL', dirs: gl4es_root + '/libs/' + lib_arch)
 
