@@ -1,18 +1,53 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions ?
+name: Android build
+run-name: Android build
 on: [push]
+
+env:
+  QT_VERSION: "6.6.2"
+
 jobs:
-  Explore-GitHub-Actions:
-    runs-on: ubuntu-latest
+  build-android:
+    runs-on: ubuntu-22.04
     steps:
-      - run: echo "? The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "? This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "? The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: Check out repository code
+      # Android environment (already installed in 'ubuntu-20.04')
+      #- name: Setup Android environment
+      #  uses: android-actions/setup-android@v3
+      #- name: Install Android SDK / NDK / tools
+      #  run: |
+      #       sdkmanager "platforms;android-34"
+      #       sdkmanager "ndk;26.1.10909125"
+      #       sdkmanager "build-tools;34.0.0"
+
+      # Install Qt (desktop & Android)
+      - name: Install Qt (desktop)
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: ${{env.QT_VERSION}}
+
+      - name: Install Qt (Android x86_64)
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: ${{env.QT_VERSION}}
+          host: 'linux'
+          target: 'android'
+          arch: 'android_x86_64'
+
+      # Checkout repository (and submodules)
+      - name: Checkout repository (and submodules)
         uses: actions/checkout@v4
-      - run: echo "? The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "?? The workflow is now ready to test your code on the runner."
-      - name: List files in the repository
+        with:
+          submodules: recursive
+
+      - name: Fetch tarballs
         run: |
-          ls ${{ github.workspace }}
-      - run: echo "? This job's status is ${{ job.status }}."
+          mkdir -p OCCT && curl -o - 'https://codeload.github.com/Open-Cascade-SAS/OCCT/tar.gz/refs/tags/V7_8_0' | tar -xz --strip-components=1 -C OCCT
+          mkdir -p libgit2 && curl -o - 'https://codeload.github.com/libgit2/libgit2/tar.gz/refs/tags/v1.8.0' | tar -xz --strip-components=1 -C libgit2
+          mkdir -p ngspice && curl -o - 'https://altushost-swe.dl.sourceforge.net/project/ngspice/ng-spice-rework/42/ngspice-42.tar.gz' | tar -xz --strip-components=1 -C ngspice
+          mkdir -p cairo && curl -o - 'https://gitlab.freedesktop.org/cairo/cairo/-/archive/1.18.0/cairo-1.18.0.tar.gz' | tar -xz --strip-components=1 -C cairo
+          mkdir -p unixODBC && curl -o - 'ftp://ftp.unixodbc.org/pub/unixODBC/unixODBC-2.3.12.tar.gz' | tar -xz --strip-components=1 -C unixODBC
+
+      - name: Patch GLU
+        run: cp _glu_meson.build glu/meson.build
+
+      - name: Build Application
+        run: ./all.sh
