@@ -5,6 +5,7 @@
 /cairo/*
 /libgit2/*
 /ngspice/*
+/unixODBC/*
 /sysroot/*
 
 # Compiled Object files
