@@ -9,6 +9,10 @@ jobs:
   build-android:
     runs-on: ubuntu-22.04
     steps:
+      # Install Meson
+      - name: Install meson
+        run: sudo apt-get install -y meson
+
       # Install Java
       - uses: actions/setup-java@v4
         with:
