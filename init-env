@@ -2,8 +2,8 @@
 
 BASE_PATH="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-export ANDROID_NDK_ROOT="$HOME/android-ndk-r25c"
-export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
+#export ANDROID_NDK_ROOT="$HOME/android-ndk-r25c"
+#export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
 
 export PATCHELF="${BASE_PATH}/patchelf"
 export GL4ES_ROOT="${BASE_PATH}/gl4es-114-extra"
