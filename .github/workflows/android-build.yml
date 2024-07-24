@@ -45,6 +45,20 @@ jobs:
           target: 'android'
           arch: 'android_x86_64'
 
+      - name: Install Qt (Android armv8)
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: ${{env.QT_VERSION}}
+          host: 'linux'
+          target: 'android'
+          arch: 'android_arm64_v8a'
+      
+      # Setup env
+      - name: Setup env
+        run: |
+             echo "QT_HOST_PATH=/home/runner/work/${{ github.event.repository.name }}/Qt/${{env.QT_VERSION}}/gcc_64" >> $GITHUB_ENV
+             echo "QT_TARGET_BASE=/home/runner/work/${{ github.event.repository.name }}/Qt/${{env.QT_VERSION}}" >> $GITHUB_ENV
+
       # Checkout repository (and submodules)
       - name: Checkout repository (and submodules)
         uses: actions/checkout@v4
@@ -64,3 +78,8 @@ jobs:
 
       - name: Build Application
         run: ./all.sh
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          path: pcbnewapp/android/*.apk
