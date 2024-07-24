@@ -31,7 +31,9 @@ cpp         = toolchain + api + '-clang++'
 strip       = toolchain + '-strip'
 EOF
 
-meson setup --verbose --prefix / --reconfigure -Dgl_provider=gl -Dgl4es_root="${GL4ES_ROOT}" --cross-file android-cross-file-${CONF_ANDROID_ARCH}.txt build_${CONF_ANDROID_ARCH}
+echo "Running meson setup for build_${CONF_ANDROID_ARCH}"
+
+meson setup --prefix / --reconfigure -Dgl_provider=gl -Dgl4es_root="${GL4ES_ROOT}" --cross-file android-cross-file-${CONF_ANDROID_ARCH}.txt build_${CONF_ANDROID_ARCH}
 meson compile -C build_${CONF_ANDROID_ARCH}
 meson install --destdir .output -C build_${CONF_ANDROID_ARCH}
 
