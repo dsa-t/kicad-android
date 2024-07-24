@@ -9,14 +9,14 @@ jobs:
   build-android:
     runs-on: ubuntu-22.04
     steps:
-      # Android environment (already installed in 'ubuntu-20.04')
-      #- name: Setup Android environment
-      #  uses: android-actions/setup-android@v3
-      #- name: Install Android SDK / NDK / tools
-      #  run: |
-      #       sdkmanager "platforms;android-34"
-      #       sdkmanager "ndk;26.1.10909125"
-      #       sdkmanager "build-tools;34.0.0"
+      # Android environment
+      - name: Setup Android environment
+        uses: android-actions/setup-android@v3
+      - name: Install Android SDK / NDK / tools
+        run: |
+             sdkmanager "platforms;android-34"
+             sdkmanager "ndk;25.2.9519653"
+             sdkmanager "build-tools;34.0.0"
 
       # Install Qt (desktop & Android)
       - name: Install Qt (desktop)
