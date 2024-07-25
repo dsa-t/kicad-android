@@ -11,6 +11,7 @@ export GL4ES_ROOT="${BASE_PATH}/gl4es-114-extra"
 
 export WX_ROOT="${BASE_PATH}/wxWidgets"
 export WX_LIBS_STAGING="${BASE_PATH}/.wx-libs-tmp"
+export GHC_ROOT="${BASE_PATH}/ghc"
 export CONF_SYSROOT="${BASE_PATH}/sysroot"
 export NDKDEPENDS="${BASE_PATH}/ndk-depends"
 
