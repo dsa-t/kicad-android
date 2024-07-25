@@ -11,12 +11,12 @@ for android_arch in $CONF_ANDROID_ARCHES; do
     ./app-copy-libs-arch $android_arch
 done
 
-pushd kicadapp
+#pushd kicadapp
 
 #androiddeployqt --input android-kicad-deployment-settings.json --output android --android-platform $ANDROID_NDK_PLATFORM --install
 #adb shell monkey -p org.qtproject.example.kicad 1
 
-popd
+#popd
 
 pushd pcbnewapp
 
