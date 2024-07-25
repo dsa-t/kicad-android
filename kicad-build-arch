@@ -11,7 +11,7 @@ pushd build_${CONF_ANDROID_ARCH}
 
 cp --no-clobber -r ../../kicad-grammar/* ./
 
-CPPFLAGS="-I/home/alex/kidroid/ghc"
+CPPFLAGS="-I${BASE_PATH}/ghc"
 LDFLAGS="-llog -rdynamic -flat_namespace"
 
 ${QT_CUSTOM_DIR}/bin/qt-cmake \
