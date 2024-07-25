@@ -12,7 +12,7 @@ pushd build_${CONF_ANDROID_ARCH}
 cp --no-clobber -r ../../kicad-grammar/* ./
 
 CPPFLAGS="-I/home/alex/kidroid/ghc"
-LDFLAGS="-fuse-ld=mold -llog -rdynamic -flat_namespace"
+LDFLAGS="-llog -rdynamic -flat_namespace"
 
 ${QT_CUSTOM_DIR}/bin/qt-cmake \
     -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake \
