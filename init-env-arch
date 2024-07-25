@@ -6,10 +6,12 @@ case $CONF_ANDROID_ARCH in
 
     arm64-v8a)
         export CONF_COMPILER_ARCH="aarch64"
+        export QT_PATH_SUFF_ARCH="arm64_v8a"
     ;;
 
     *)
         export CONF_COMPILER_ARCH="$CONF_ANDROID_ARCH"
+        export QT_PATH_SUFF_ARCH="$CONF_ANDROID_ARCH"
     ;;
 esac
 
@@ -22,7 +24,7 @@ esac
 #export STRIP="${CONF_COMPILER_ARCH}-linux-android-strip"
 #export OBJDUMP="${CONF_COMPILER_ARCH}-linux-android-objdump"
 
-export QT_CUSTOM_DIR="${QT_TARGET_BASE}/android_${CONF_ANDROID_ARCH}"
+export QT_CUSTOM_DIR="${QT_TARGET_BASE}/android_${QT_PATH_SUFF_ARCH}"
 
 export WX_CONFHOST="${CONF_COMPILER_ARCH}-linux-android${CONF_ANDROID_LEVEL}"
 
