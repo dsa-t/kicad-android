@@ -30,6 +30,6 @@ export ANDROID_TOOLCHAIN_PATH=${ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/linux
 
 #export CMAKE_BUILD_TYPE="Release"
 
-export PATH=${ANDROID_TOOLCHAIN_PATH}/bin:$PATH
+export PATH="${ANDROID_TOOLCHAIN_PATH}/bin:${ANDROID_TOOLCHAIN_PATH}/python3/bin/:$PATH"
 
 mkdir -p ${CONF_SYSROOT}

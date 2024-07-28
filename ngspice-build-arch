@@ -19,6 +19,8 @@ pushd "./$release"
 
 export ac_cv_lib_pthread_pthread_create=yes
 
+#export CXXFLAGS="-Wno-unused-command-line-argument -Wno-sign-conversion -Wno-float-conversion"
+
 VERBOSE=1 ../configure \
             --build=$(../config.guess) \
             --host="$WX_CONFHOST" \

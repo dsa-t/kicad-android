@@ -4,7 +4,7 @@ set -e
 
 . init-env-arch $1
 
-pushd OCCT
+pushd protobuf
 
 mkdir -p build_${CONF_ANDROID_ARCH}
 pushd build_${CONF_ANDROID_ARCH}
@@ -16,10 +16,9 @@ cmake \
     -DANDROID_PLATFORM=${ANDROID_NDK_PLATFORM} \
     -DANDROID_ABI=${CONF_ANDROID_ARCH} \
     -DCMAKE_FIND_ROOT_PATH=${CONF_SYSROOT_ARCH} \
-    -DCMAKE_C_FLAGS="${CFLAGS}" \
-    -DCMAKE_CXX_FLAGS="${CXXFLAGS}" \
-    -DBUILD_MODULE_Visualization=OFF \
-    ..
+    -Dprotobuf_BUILD_TESTS=OFF \
+    -Dprotobuf_BUILD_PROTOC_BINARIES=OFF \
+    ../cmake
 
 cmake --build . -j 24 --target install
 

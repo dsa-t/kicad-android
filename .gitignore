@@ -6,7 +6,12 @@
 /libgit2/*
 /ngspice/*
 /unixODBC/*
+/zstd/*
+/protobuf/*
+/harfbuzz/*
+/python/*
 /sysroot/*
+/pcbnewapp/*
 
 # Compiled Object files
 *.slo

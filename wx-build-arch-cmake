@@ -2,12 +2,12 @@
 
 set -e
 
-. init-env-arch $1
+. init-env-arch "$1"
 
 pushd wxWidgets
 
-mkdir -p build_${CONF_ANDROID_ARCH}
-pushd build_${CONF_ANDROID_ARCH}
+mkdir -p "build_${CONF_ANDROID_ARCH}"
+pushd "build_${CONF_ANDROID_ARCH}"
 
 #-I${CONF_SYSROOT_USR}/include
 export CPPFLAGS=""
@@ -16,10 +16,11 @@ export CFLAGS="${CPPFLAGS}"
 export LDFLAGS="-llog -Wl,-rpath-link=${CONF_SYSROOT_USR}/lib"
 
 cmake \
-    -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake \
-    -DCMAKE_INSTALL_PREFIX=${CONF_SYSROOT_USR} \
-    -DANDROID_PLATFORM=${ANDROID_NDK_PLATFORM} \
-    -DANDROID_ABI=${CONF_ANDROID_ARCH} \
+    --fresh \
+    -DCMAKE_TOOLCHAIN_FILE="${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake" \
+    -DCMAKE_INSTALL_PREFIX="${CONF_SYSROOT_USR}" \
+    -DANDROID_PLATFORM="${ANDROID_NDK_PLATFORM}" \
+    -DANDROID_ABI="${CONF_ANDROID_ARCH}" \
     -DCMAKE_FIND_ROOT_PATH="${CONF_SYSROOT_ARCH};${QT_CUSTOM_DIR}" \
     -DCMAKE_EXE_LINKER_FLAGS="${LDFLAGS}" \
     -DCMAKE_MODULE_LINKER_FLAGS="${LDFLAGS}" \

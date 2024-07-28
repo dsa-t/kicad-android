@@ -1,0 +1,46 @@
+#!/bin/bash
+
+set -e
+
+. init-env-arch $1
+
+export CC="${CONF_COMPILER_ARCH}-linux-android${CONF_ANDROID_LEVEL}-clang"
+export CXX="${CONF_COMPILER_ARCH}-linux-android${CONF_ANDROID_LEVEL}-clang++"
+export AR="llvm-ar"
+export RANLIB="llvm-ranlib"
+export READELF="llvm-readelf"
+
+export CFLAGS="-fPIC"
+export CPPFLAGS="-fPIC"
+
+pushd python
+
+build_dir=build_${CONF_ANDROID_ARCH}
+
+mkdir -p "$build_dir"
+pushd "$build_dir"
+
+../configure \
+    --build=x86_64-pc-linux-gnu \
+    --host="${WX_CONFHOST}" \
+    --prefix="${CONF_SYSROOT_USR}" \
+    --disable-ipv6 \
+    --enable-shared \
+    ac_cv_have_long_long_format=yes ac_cv_file__dev_ptmx=no ac_cv_file__dev_ptc=no
+
+# ./configure --target=arm-linux-androideabi \
+#             -prefix=/path/to/install/dir \
+#             --enable-shared --without-sqlite3 \
+#             --without-pdo-sqlite --without-pear \
+#             --enable-simplexml --disable-mbregex \
+#             --enable-sockets --enable-fpm --disable-opcache \
+#             --enable-libxml --without-zlib --build=x86_64-linux-gnu \
+#             --disable-all --disable-ipv6 ac_cv_have_long_long_format=yes ac_cv_file__dev_ptmx=no ac_cv_file__dev_ptc=no
+
+make -j24 install
+
+#cp -r .output/* ${CONF_SYSROOT_USR}/
+
+popd
+
+popd
