@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -e
+
+. init-env
+
+pushd openssl
+
+popd
+
+for android_arch in $CONF_ANDROID_ARCHES; do
+    ./openssl-build-arch $android_arch
+done

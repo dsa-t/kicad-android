@@ -1,0 +1,24 @@
+[constants]
+ndk_path    = '/home/alex/android-ndk-r25c'
+toolchain   = '/home/alex/android-ndk-r25c/toolchains/llvm/prebuilt/linux-x86_64/bin/x86_64-linux-android'
+api         = '28'
+
+[host_machine]
+system      = 'android'
+cpu_family  = 'x86_64'
+cpu         = 'x86_64'
+endian      = 'little'
+
+[properties]
+sys_root          = '/home/alex/kicad-android/sysroot/x86_64/usr'
+pkg_config_libdir = '/home/alex/kicad-android/sysroot/x86_64/usr/lib/pkgconfig'
+
+[binaries]
+c           = toolchain + api + '-clang'
+cpp         = toolchain + api + '-clang++'
+strip       = toolchain + '-strip'
+as          = 'llvm-as'
+ar          = 'llvm-ar'
+ranlib      = 'llvm-ranlib'
+pkg-config  = 'pkg-config'
+cmake       = 'cmake'

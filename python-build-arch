@@ -7,6 +7,7 @@ set -e
 export CC="${CONF_COMPILER_ARCH}-linux-android${CONF_ANDROID_LEVEL}-clang"
 export CXX="${CONF_COMPILER_ARCH}-linux-android${CONF_ANDROID_LEVEL}-clang++"
 export AR="llvm-ar"
+export AS="llvm-as"
 export RANLIB="llvm-ranlib"
 export READELF="llvm-readelf"
 

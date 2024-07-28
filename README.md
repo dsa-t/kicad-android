@@ -28,7 +28,7 @@ mkdir -p unixODBC && curl -L -o - 'ftp://ftp.unixodbc.org/pub/unixODBC/unixODBC-
 mkdir -p zstd && curl -L -o - 'https://github.com/facebook/zstd/releases/download/v1.5.6/zstd-1.5.6.tar.gz' | tar -xz --strip-components=1 -C zstd
 mkdir -p protobuf && curl -L -o - 'https://github.com/protocolbuffers/protobuf/archive/refs/tags/v3.12.4.tar.gz' | tar -xz --strip-components=1 -C protobuf
 mkdir -p python && curl -L -o - 'https://www.python.org/ftp/python/3.9.1/Python-3.9.1.tgz' | tar -xz --strip-components=1 -C python
-mkdir -p harfbuzz && curl -L -o - 'https://github.com/harfbuzz/harfbuzz/archive/refs/tags/9.0.0.tar.gz' | tar -xz --strip-components=1 -C harfbuzz
+mkdir -p openssl && curl -L -o - 'https://github.com/openssl/openssl/releases/download/openssl-3.3.1/openssl-3.3.1.tar.gz' | tar -xz --strip-components=1 -C openssl          
 ```
 
 # Patch GLU and ngspice

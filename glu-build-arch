@@ -21,12 +21,18 @@ cpu         = '${CONF_COMPILER_ARCH}'
 endian      = 'little'
 
 [properties]
-sys_root        = ndk_path + '/sysroot'
+sys_root          = '${CONF_SYSROOT_USR}'
+pkg_config_libdir = '${CONF_SYSROOT_USR}/lib/pkgconfig'
 
 [binaries]
 c           = toolchain + api + '-clang'
 cpp         = toolchain + api + '-clang++'
 strip       = toolchain + '-strip'
+as          = 'llvm-as'
+ar          = 'llvm-ar'
+ranlib      = 'llvm-ranlib'
+pkg-config  = 'pkg-config'
+cmake       = 'cmake'
 EOF
 
 echo "Running meson setup for build_${CONF_ANDROID_ARCH}"

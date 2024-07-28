@@ -10,6 +10,7 @@
 /protobuf/*
 /harfbuzz/*
 /python/*
+/openssl/*
 /sysroot/*
 /pcbnewapp/*
 

@@ -4,10 +4,10 @@ set -e
 
 . init-env-arch $1
 
-pushd cairo
+pushd meson
 
 
-cat > "android-cross-file-${CONF_ANDROID_ARCH}.txt" <<EOF
+cat > android-cross-file-${CONF_ANDROID_ARCH}.txt <<EOF
 [constants]
 ndk_path    = '${ANDROID_NDK_ROOT}'
 toolchain   = '${ANDROID_TOOLCHAIN_PATH}/bin/${CONF_COMPILER_ARCH}-linux-android'
@@ -34,15 +34,20 @@ pkg-config  = 'pkg-config'
 cmake       = 'cmake'
 EOF
 
-meson setup --prefix / --buildtype release --cross-file "android-cross-file-${CONF_ANDROID_ARCH}.txt" \
+meson setup --prefix / --buildtype release \
+    --cross-file "android-cross-file-${CONF_ANDROID_ARCH}.txt" \
     "build_${CONF_ANDROID_ARCH}" \
     --pkg-config-path="${CONF_SYSROOT_USR}/lib/pkgconfig" \
     --cmake-prefix-path="${CONF_SYSROOT_USR}" \
     -Dauto_features=disabled \
-    -Dpixman:a64-neon=disabled --wipe \
-    -Dfreetype=enabled \
-    -Dzlib=enabled \
-    -Dpng=enabled \
+    -Dopenssl:asm=enabled \
+    -Dcurl:ssl=enabled \
+    -Dcurl:openssl=enabled \
+    -Dcurl:libz=enabled \
+    -Dcurl:http2=enabled \
+    -Dharfbuzz:icu=enabled \
+    -Dharfbuzz:freetype=enabled \
+    -Dharfbuzz:tests=disabled --wipe
     
 meson compile -C "build_${CONF_ANDROID_ARCH}"
 meson install --destdir .output -C "build_${CONF_ANDROID_ARCH}"
