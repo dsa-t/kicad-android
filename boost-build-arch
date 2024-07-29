@@ -18,6 +18,8 @@ cmake \
     -DCMAKE_FIND_ROOT_PATH="${CONF_SYSROOT_ARCH}" \
     -DCMAKE_C_FLAGS="${CFLAGS}" \
     -DCMAKE_CXX_FLAGS="${CXXFLAGS}" \
+    -DCMAKE_FIND_PACKAGE_PREFER_CONFIG=ON \
+    -DBUILD_SHARED_LIBS=ON \
     ..
 
 cmake --build . -j 24
