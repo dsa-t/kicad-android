@@ -11,6 +11,9 @@
 /harfbuzz/*
 /python/*
 /openssl/*
+/icu/*
+/pcre2/*
+/boost/*
 /sysroot/*
 /pcbnewapp/*
 

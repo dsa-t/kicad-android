@@ -4,6 +4,7 @@ set -e
 
 . init-env
 
+
 for android_arch in $CONF_ANDROID_ARCHES; do
-    ./openssl-build-arch $android_arch
+    ./pcre2-build-arch $android_arch
 done

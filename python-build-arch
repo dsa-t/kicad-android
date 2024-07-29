@@ -24,7 +24,7 @@ pushd "$build_dir"
 ../configure \
     --build=x86_64-pc-linux-gnu \
     --host="${WX_CONFHOST}" \
-    --prefix="${CONF_SYSROOT_USR}" \
+    --prefix="" \
     --disable-ipv6 \
     --enable-shared \
     ac_cv_have_long_long_format=yes ac_cv_file__dev_ptmx=no ac_cv_file__dev_ptc=no
@@ -38,7 +38,7 @@ pushd "$build_dir"
 #             --enable-libxml --without-zlib --build=x86_64-linux-gnu \
 #             --disable-all --disable-ipv6 ac_cv_have_long_long_format=yes ac_cv_file__dev_ptmx=no ac_cv_file__dev_ptc=no
 
-make -j24 install
+make DESTDIR="${CONF_SYSROOT_USR}" -j24 install
 
 #cp -r .output/* ${CONF_SYSROOT_USR}/
 

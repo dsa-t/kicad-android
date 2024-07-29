@@ -1,0 +1,37 @@
+#!/bin/bash
+
+set -e
+
+. init-env-arch $1
+
+BASE_PATH="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+export CC="${CONF_COMPILER_ARCH}-linux-android${CONF_ANDROID_LEVEL}-clang"
+export CXX="${CONF_COMPILER_ARCH}-linux-android${CONF_ANDROID_LEVEL}-clang++"
+export AR="llvm-ar"
+export AS="llvm-as"
+export RANLIB="llvm-ranlib"
+export STRIP="llvm-strip"
+
+export CFLAGS="-Os -ffunction-sections -fdata-sections -fno-unwind-tables -fno-asynchronous-unwind-tables -flto -gdwarf"
+export LDFLAGS="-Wl,-s -Wl,-Bsymbolic -Wl,--gc-sections"
+
+pushd icu/source
+
+build_dir=build_${CONF_ANDROID_ARCH}
+
+mkdir -p "$build_dir"
+pushd "$build_dir"
+
+../configure \
+    --build=x86_64-pc-linux-gnu \
+    --host="${WX_CONFHOST}" \
+    --prefix="" \
+    --with-cross-build="${BASE_PATH}/icu/source/build_host"
+
+make -j24
+make DESTDIR="${CONF_SYSROOT_USR}" install
+
+popd
+
+popd

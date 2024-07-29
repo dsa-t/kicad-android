@@ -2,7 +2,6 @@ project('')
 
 dependency('libcurl')
 
-subproject('boost')
-
+subproject('fontconfig')
 subproject('freetype2')
 subproject('harfbuzz')

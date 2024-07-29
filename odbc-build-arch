@@ -16,9 +16,9 @@ pushd "$build_dir"
 
 ../configure \
     --host="${WX_CONFHOST}" \
-    --prefix="${CONF_SYSROOT_USR}"
+    --prefix=""
 
-make -j24 install
+make DESTDIR="${CONF_SYSROOT_USR}" -j24 install
 
 #cp -r .output/* ${CONF_SYSROOT_USR}/
 

@@ -1,0 +1,25 @@
+#!/bin/bash
+
+set -e
+
+. init-env
+
+
+pushd icu/source
+
+build_dir=build_host
+
+mkdir -p "$build_dir"
+pushd "$build_dir"
+
+../configure 
+
+make -j24
+
+popd
+popd
+
+
+for android_arch in $CONF_ANDROID_ARCHES; do
+    ./icu-build-arch $android_arch
+done

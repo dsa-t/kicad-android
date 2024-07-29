@@ -9,10 +9,8 @@ export CXX="${CONF_COMPILER_ARCH}-linux-android${CONF_ANDROID_LEVEL}-clang++"
 
 pushd ngspice
 
-release=build-android-${CONF_ANDROID_ARCH}
-dst=${PWD}/.output_${CONF_ANDROID_ARCH}
+release=build-${CONF_ANDROID_ARCH}
 
-mkdir -p "$dst"
 mkdir -p "./$release"
 
 pushd "./$release"
@@ -24,15 +22,13 @@ export ac_cv_lib_pthread_pthread_create=yes
 VERBOSE=1 ../configure \
             --build="$(../config.guess)" \
             --host="$WX_CONFHOST" \
-            --prefix="$dst" \
-            --exec-prefix="$dst" \
+            --prefix="" \
+            --exec-prefix="" \
             --with-ngshared --enable-xspice --enable-cider --disable-debug
 
 popd
 
 make -C "./$release" -j24
-make -C "./$release" -j24 install
-
-cp -r "${dst}/"* "${CONF_SYSROOT_USR}/"
+make DESTDIR="${CONF_SYSROOT_USR}" -C "./$release" -j24 install
 
 popd

@@ -39,7 +39,7 @@ meson setup --prefix / --buildtype release --cross-file "android-cross-file-${CO
     --pkg-config-path="${CONF_SYSROOT_USR}/lib/pkgconfig" \
     --cmake-prefix-path="${CONF_SYSROOT_USR}" \
     -Dauto_features=disabled \
-    -Dpixman:a64-neon=disabled --wipe \
+    -Dpixman:a64-neon=disabled \
     -Dfreetype=enabled \
     -Dzlib=enabled \
     -Dpng=enabled \
