@@ -11,7 +11,7 @@ pushd "build_${CONF_ANDROID_ARCH}"
 
 cmake \
     -DCMAKE_TOOLCHAIN_FILE="${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake" \
-    -DCMAKE_INSTALL_PREFIX="" \
+    -DCMAKE_INSTALL_PREFIX="/usr" \
     -DCMAKE_ANDROID_ARCH_ABI="${CONF_ANDROID_ARCH}" \
     -DANDROID_PLATFORM="${ANDROID_NDK_PLATFORM}" \
     -DANDROID_ABI="${CONF_ANDROID_ARCH}" \
@@ -22,7 +22,7 @@ cmake \
     ..
 
 cmake --build . -j 24
-make DESTDIR="${CONF_SYSROOT_USR}" install
+make DESTDIR="${CONF_SYSROOT_ARCH}" install
 
 popd
 

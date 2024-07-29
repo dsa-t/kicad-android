@@ -16,11 +16,9 @@ pushd "$build_dir"
 
 ../configure \
     --host="${WX_CONFHOST}" \
-    --prefix=""
+    --prefix="/usr"
 
-make DESTDIR="${CONF_SYSROOT_USR}" -j24 install
-
-#cp -r .output/* ${CONF_SYSROOT_USR}/
+make DESTDIR="${CONF_SYSROOT_ARCH}" -j24 install
 
 popd
 

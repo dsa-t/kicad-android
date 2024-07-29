@@ -16,9 +16,8 @@ export CFLAGS="${CPPFLAGS}"
 export LDFLAGS="-llog -Wl,-rpath-link=${CONF_SYSROOT_USR}/lib"
 
 cmake \
-    --fresh \
     -DCMAKE_TOOLCHAIN_FILE="${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake" \
-    -DCMAKE_INSTALL_PREFIX="" \
+    -DCMAKE_INSTALL_PREFIX="/usr" \
     -DANDROID_PLATFORM="${ANDROID_NDK_PLATFORM}" \
     -DANDROID_ABI="${CONF_ANDROID_ARCH}" \
     -DCMAKE_FIND_ROOT_PATH="${CONF_SYSROOT_ARCH};${QT_CUSTOM_DIR}" \
@@ -49,9 +48,7 @@ cmake \
     ..
 
 cmake --build . -j 24
-make DESTDIR="${CONF_SYSROOT_USR}" install/strip
-
-#cp --dereference -r .output/* ${CONF_SYSROOT_USR}/
+make DESTDIR="${CONF_SYSROOT_ARCH}" install/strip
 
 popd
 

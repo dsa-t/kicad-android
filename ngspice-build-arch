@@ -22,13 +22,13 @@ export ac_cv_lib_pthread_pthread_create=yes
 VERBOSE=1 ../configure \
             --build="$(../config.guess)" \
             --host="$WX_CONFHOST" \
-            --prefix="" \
-            --exec-prefix="" \
-            --with-ngshared --enable-xspice --enable-cider --disable-debug
+            --prefix="/usr" \
+            --exec-prefix="/usr" \
+            --with-ngshared --enable-cider --disable-debug
 
 popd
 
 make -C "./$release" -j24
-make DESTDIR="${CONF_SYSROOT_USR}" -C "./$release" -j24 install
+make DESTDIR="${CONF_SYSROOT_ARCH}" -C "./$release" -j24 install
 
 popd

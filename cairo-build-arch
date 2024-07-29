@@ -20,7 +20,7 @@ cpu         = '${CONF_COMPILER_ARCH}'
 endian      = 'little'
 
 [properties]
-sys_root          = '${CONF_SYSROOT_USR}'
+sys_root          = '${CONF_SYSROOT_ARCH}'
 pkg_config_libdir = '${CONF_SYSROOT_USR}/lib/pkgconfig'
 
 [binaries]
@@ -34,7 +34,8 @@ pkg-config  = 'pkg-config'
 cmake       = 'cmake'
 EOF
 
-meson setup --prefix / --buildtype release --cross-file "android-cross-file-${CONF_ANDROID_ARCH}.txt" \
+meson setup --prefix "/usr" --buildtype release \
+    --cross-file "android-cross-file-${CONF_ANDROID_ARCH}.txt" \
     "build_${CONF_ANDROID_ARCH}" \
     --pkg-config-path="${CONF_SYSROOT_USR}/lib/pkgconfig" \
     --cmake-prefix-path="${CONF_SYSROOT_USR}" \
@@ -42,11 +43,11 @@ meson setup --prefix / --buildtype release --cross-file "android-cross-file-${CO
     -Dpixman:a64-neon=disabled \
     -Dfreetype=enabled \
     -Dzlib=enabled \
-    -Dpng=enabled \
+    -Dpng=enabled
     
 meson compile -C "build_${CONF_ANDROID_ARCH}"
 meson install --destdir .output -C "build_${CONF_ANDROID_ARCH}"
 
-cp -r "build_${CONF_ANDROID_ARCH}/.output/"* "${CONF_SYSROOT_USR}/"
+cp -r "build_${CONF_ANDROID_ARCH}/.output/"* "${CONF_SYSROOT_ARCH}/"
 
 popd

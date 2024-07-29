@@ -27,17 +27,17 @@ export RANLIB="llvm-ranlib"
 export STRIP="llvm-strip"
 
 export CFLAGS="-Os -ffunction-sections -fdata-sections -fno-unwind-tables -fno-asynchronous-unwind-tables -flto -gdwarf"
-export LDFLAGS="-Wl,-s -Wl,-Bsymbolic -Wl,--gc-sections"
+export LDFLAGS="-Wl,-s -Wl,-Bsymbolic" # -Wl,--gc-sections
 
 pushd openssl
 
-./Configure "${OPENSSL_TARGET}" --prefix="/" \
+./Configure "${OPENSSL_TARGET}" --prefix="/usr" \
     no-tests no-apps no-sm2 no-cms no-cmp no-argon2 no-http no-legacy \
     no-blake2 no-ocsp no-dynamic-engine no-dso no-asm
 
 make clean
 make CALC_VERSIONS="SHLIB_COMPAT=; SHLIB_SOVER=" -j24
-make DESTDIR="${CONF_SYSROOT_USR}" install_sw
+make DESTDIR="${CONF_SYSROOT_ARCH}" install_sw
 make clean
 
 popd

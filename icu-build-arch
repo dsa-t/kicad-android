@@ -26,11 +26,11 @@ pushd "$build_dir"
 ../configure \
     --build=x86_64-pc-linux-gnu \
     --host="${WX_CONFHOST}" \
-    --prefix="" \
+    --prefix="/usr" \
     --with-cross-build="${BASE_PATH}/icu/source/build_host"
 
 make -j24
-make DESTDIR="${CONF_SYSROOT_USR}" install
+make DESTDIR="${CONF_SYSROOT_ARCH}" install
 
 popd
 

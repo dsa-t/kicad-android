@@ -18,7 +18,7 @@ LDFLAGS="-llog -rdynamic -flat_namespace"
     --fresh \
     -DCMAKE_VERBOSE_MAKEFILE=OFF \
     -DCMAKE_TOOLCHAIN_FILE="${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake" \
-    -DCMAKE_INSTALL_PREFIX="" \
+    -DCMAKE_INSTALL_PREFIX="/usr" \
     -DANDROID_SDK_ROOT="${ANDROID_SDK_ROOT}" \
     -DANDROID_NDK_ROOT="${ANDROID_NDK_ROOT}" \
     -DANDROID_PLATFORM="${ANDROID_NDK_PLATFORM}" \
@@ -31,6 +31,7 @@ LDFLAGS="-llog -rdynamic -flat_namespace"
     -DCMAKE_SHARED_LINKER_FLAGS="${LDFLAGS}" \
     -DCMAKE_C_FLAGS="${CPPFLAGS}" \
     -DCMAKE_CXX_FLAGS="${CPPFLAGS}" \
+    -DCMAKE_FIND_PACKAGE_PREFER_CONFIG=ON \
     -DKICAD_SCRIPTING_WXPYTHON=OFF \
     -DKICAD_BUILD_QA_TESTS=OFF \
     -DKICAD_USE_EGL=OFF \
@@ -41,7 +42,7 @@ LDFLAGS="-llog -rdynamic -flat_namespace"
     ..
 
 cmake --build . -j 24
-make DESTDIR="${CONF_SYSROOT_USR}" install/strip
+make DESTDIR="${CONF_SYSROOT_ARCH}" install/strip
 
 #cp -r .output/* ${CONF_SYSROOT_USR}/
 

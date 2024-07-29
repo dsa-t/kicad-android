@@ -18,7 +18,7 @@ cmake \
     -DANDROID_PLATFORM="${ANDROID_NDK_PLATFORM}" \
     -DANDROID_ABI="${CONF_ANDROID_ARCH}" \
     -DCMAKE_FIND_ROOT_PATH="${CONF_SYSROOT_ARCH}" \
-    -DCMAKE_INSTALL_PREFIX="" \
+    -DCMAKE_INSTALL_PREFIX="/usr" \
     -DCMAKE_C_FLAGS="${CFLAGS}" \
     -DCMAKE_CXX_FLAGS="${CXXFLAGS}" \
     -DBUILD_TESTS=OFF \
@@ -26,7 +26,7 @@ cmake \
     ..
 
 cmake --build . -j 24
-make DESTDIR="${CONF_SYSROOT_USR}" install
+make DESTDIR="${CONF_SYSROOT_ARCH}" install
 
 popd
 

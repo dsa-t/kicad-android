@@ -21,7 +21,7 @@ cpu         = '${CONF_COMPILER_ARCH}'
 endian      = 'little'
 
 [properties]
-sys_root          = '${CONF_SYSROOT_USR}'
+sys_root          = '${CONF_SYSROOT_ARCH}'
 pkg_config_libdir = '${CONF_SYSROOT_USR}/lib/pkgconfig'
 
 [binaries]
@@ -37,10 +37,10 @@ EOF
 
 echo "Running meson setup for build_${CONF_ANDROID_ARCH}"
 
-meson setup --prefix / -Dgl_provider=gl -Dgl4es_root="${GL4ES_ROOT}" --cross-file android-cross-file-${CONF_ANDROID_ARCH}.txt build_${CONF_ANDROID_ARCH}
-meson compile -C build_${CONF_ANDROID_ARCH}
-meson install --destdir .output -C build_${CONF_ANDROID_ARCH}
+meson setup --prefix /usr -Dgl_provider=gl -Dgl4es_root="${GL4ES_ROOT}" --cross-file android-cross-file-${CONF_ANDROID_ARCH}.txt build_${CONF_ANDROID_ARCH}
+meson compile -C "build_${CONF_ANDROID_ARCH}"
+meson install --destdir .output -C "build_${CONF_ANDROID_ARCH}"
 
-cp -r build_${CONF_ANDROID_ARCH}/.output/* ${CONF_SYSROOT_USR}/
+cp -r "build_${CONF_ANDROID_ARCH}/.output/"* "${CONF_SYSROOT_ARCH}/"
 
 popd
