@@ -1,2 +1,8 @@
-[wrap-redirect]
-filename = fontconfig-2.14.2/subprojects/gperf.wrap
+[wrap-git]
+directory=gperf
+url=https://gitlab.freedesktop.org/tpm/gperf.git
+push-url=https://gitlab.freedesktop.org/tpm/gperf.git
+revision=meson
+
+[provide]
+program_names=gperf
