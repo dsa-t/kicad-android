@@ -17,6 +17,8 @@
 /sysroot/*
 /pcbnewapp/*
 
+android-cross-file*.txt
+
 # Compiled Object files
 *.slo
 *.lo

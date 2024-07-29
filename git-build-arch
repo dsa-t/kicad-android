@@ -23,12 +23,10 @@ cmake \
     -DCMAKE_CXX_FLAGS="${CXXFLAGS}" \
     -DBUILD_TESTS=OFF \
     -DUSE_HTTPS=OpenSSL \
-    .. --debug-find
+    ..
 
 cmake --build . -j 24
 make DESTDIR="${CONF_SYSROOT_USR}" install
-
-# cp -r .output/* ${CONF_SYSROOT_USR}/
 
 popd
 
