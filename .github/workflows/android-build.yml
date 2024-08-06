@@ -13,9 +13,9 @@ jobs:
       - name: Install meson
         run: sudo pip3 install --upgrade meson
 
-      # Install Ninja
-      - name: Install Ninja
-        run: sudo apt-get install -y ninja-build
+      # Install apt packages
+      - name: Install apt packages
+        run: sudo apt-get install -y ninja-build protobuf-compiler
 
       # Install Java
       - uses: actions/setup-java@v4
