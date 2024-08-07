@@ -110,9 +110,6 @@ jobs:
       - name: Build Application
         run: ./all.sh
 
-      - if: failure()
-        run: cat /home/runner/work/kicad-android/kicad-android/icu/source/build_x86_64/config.log
-
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
