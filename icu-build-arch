@@ -16,6 +16,9 @@ export STRIP="llvm-strip"
 export CFLAGS="-Os -ffunction-sections -fdata-sections -fno-unwind-tables -fno-asynchronous-unwind-tables -flto -gdwarf"
 export LDFLAGS="-Wl,-s -Wl,-Bsymbolic -Wl,--gc-sections"
 
+echo " ** ICU PATH **: $PATH"
+x86_64-linux-android28-clang --version
+
 pushd icu/source
 
 build_dir=build_${CONF_ANDROID_ARCH}
