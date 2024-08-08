@@ -1,5 +1,7 @@
 #!/bin/bash
 
+BASE_PATH="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
 export CONF_ANDROID_ARCH=$1
 
 case $CONF_ANDROID_ARCH in
@@ -15,6 +17,10 @@ case $CONF_ANDROID_ARCH in
     ;;
 esac
 
+export ANDROID_TOOLCHAIN_PATH="${BASE_PATH}/toolchain_$CONF_ANDROID_ARCH"
+
+export PATH="${ANDROID_TOOLCHAIN_PATH}/bin:${ANDROID_TOOLCHAIN_PATH}/python3/bin/:$ORIGINAL_PATH"
+
 #export CC="${CONF_COMPILER_ARCH}-linux-android${CONF_ANDROID_LEVEL}-clang"
 #export CXX="${CONF_COMPILER_ARCH}-linux-android${CONF_ANDROID_LEVEL}-clang++"
 #export AR="${CONF_COMPILER_ARCH}-linux-android-ar"
@@ -28,10 +34,12 @@ export QT_CUSTOM_DIR="${QT_TARGET_BASE}/android_${QT_PATH_SUFF_ARCH}"
 
 export WX_CONFHOST="${CONF_COMPILER_ARCH}-linux-android${CONF_ANDROID_LEVEL}"
 
-export CONF_SYSROOT_ARCH="${CONF_SYSROOT}/${CONF_ANDROID_ARCH}"
+#export CONF_SYSROOT_ARCH="${CONF_SYSROOT}/${CONF_ANDROID_ARCH}"
+
+export CONF_SYSROOT_ARCH="${ANDROID_TOOLCHAIN_PATH}/sysroot"
 export CONF_SYSROOT_USR="${CONF_SYSROOT_ARCH}/usr"
 
-mkdir -p ${CONF_SYSROOT_USR}
-mkdir -p ${CONF_SYSROOT_USR}/lib
-mkdir -p ${CONF_SYSROOT_USR}/include
-mkdir -p ${CONF_SYSROOT_USR}/bin
+mkdir -p "${CONF_SYSROOT_USR}"
+mkdir -p "${CONF_SYSROOT_USR}/lib"
+mkdir -p "${CONF_SYSROOT_USR}/include"
+mkdir -p "${CONF_SYSROOT_USR}/bin"

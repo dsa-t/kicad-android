@@ -1,19 +1,20 @@
 #!/bin/bash
 
 BASE_PATH="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+export CONF_BASE_PATH="$BASE_PATH"
 
 #export ANDROID_NDK_ROOT="$HOME/android-ndk-r25c"
 #export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
 
-export PATCHELF="${BASE_PATH}/patchelf"
-export GL4ES_ROOT="${BASE_PATH}/gl4es-114-extra"
-#export QT5_CUSTOM_DIR="${BASE_PATH}/qt/5.15.2/android"
+export PATCHELF="${CONF_BASE_PATH}/patchelf"
+export GL4ES_ROOT="${CONF_BASE_PATH}/gl4es-114-extra"
+#export QT5_CUSTOM_DIR="${CONF_BASE_PATH}/qt/5.15.2/android"
 
-export WX_ROOT="${BASE_PATH}/wxWidgets"
-export WX_LIBS_STAGING="${BASE_PATH}/.wx-libs-tmp"
-export GHC_ROOT="${BASE_PATH}/ghc"
-export CONF_SYSROOT="${BASE_PATH}/sysroot"
-export NDKDEPENDS="${BASE_PATH}/ndk-depends"
+export WX_ROOT="${CONF_BASE_PATH}/wxWidgets"
+export WX_LIBS_STAGING="${CONF_BASE_PATH}/.wx-libs-tmp"
+export GHC_ROOT="${CONF_BASE_PATH}/ghc"
+export CONF_SYSROOT="${CONF_BASE_PATH}/sysroot"
+export NDKDEPENDS="${CONF_BASE_PATH}/ndk-depends"
 
 export WX_VERSION=3.3
 export WX_INC_DIR=${WX_ROOT}/include
@@ -26,10 +27,12 @@ export CONF_ANDROID_ARCHES="x86_64 arm64-v8a"
 export CONF_ANDROID_LEVEL=28
 export ANDROID_NDK_PLATFORM="android-${CONF_ANDROID_LEVEL}"
 
-export ANDROID_TOOLCHAIN_PATH=${ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/linux-x86_64
+export ANDROID_TOOLCHAIN_PATH_SRC="${ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/linux-x86_64"
+
+export ORIGINAL_PATH="$PATH"
 
 #export CMAKE_BUILD_TYPE="Release"
 
-export PATH="${ANDROID_TOOLCHAIN_PATH}/bin:${ANDROID_TOOLCHAIN_PATH}/python3/bin/:$PATH"
+export PATH="${ANDROID_TOOLCHAIN_PATH_SRC}/bin:${ANDROID_TOOLCHAIN_PATH_SRC}/python3/bin/:$ORIGINAL_PATH"
 
-mkdir -p ${CONF_SYSROOT}
+mkdir -p "${CONF_SYSROOT}"

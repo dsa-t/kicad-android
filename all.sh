@@ -4,7 +4,9 @@ set -e
 
 . init-env
 
-rm -rf "${CONF_SYSROOT}"
+rm -rf "./toolchain_*"
+
+./toolchain-init
 
 ./icu-build
 ./openssl-build

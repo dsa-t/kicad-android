@@ -4,16 +4,21 @@ set -e
 
 . init-env
 
-pushd $GL4ES_ROOT
+pushd "$GL4ES_ROOT"
 
-$ANDROID_NDK_ROOT/ndk-build -j24 NDK_PROJECT_PATH=. APP_BUILD_SCRIPT=Android.mk APP_PLATFORM=android-28 || exit
+"$ANDROID_NDK_ROOT/ndk-build" -j24 NDK_PROJECT_PATH=. APP_BUILD_SCRIPT=Android.mk APP_PLATFORM=android-28 || exit
 
 for android_arch in $CONF_ANDROID_ARCHES; do
-    mkdir -p ${CONF_SYSROOT}/${android_arch}/usr/lib/
-    mkdir -p ${CONF_SYSROOT}/${android_arch}/usr/include/
 
-    cp -r libs/${android_arch}/* ${CONF_SYSROOT}/${android_arch}/usr/lib/
-    cp -r include/* ${CONF_SYSROOT}/${android_arch}/usr/include
+    ANDROID_TOOLCHAIN_PATH="${CONF_BASE_PATH}/toolchain_$android_arch"
+    CONF_SYSROOT_ARCH="${ANDROID_TOOLCHAIN_PATH}/sysroot"
+    CONF_SYSROOT_USR="${CONF_SYSROOT_ARCH}/usr"
+
+    mkdir -p "${CONF_SYSROOT_USR}/lib/"
+    mkdir -p "${CONF_SYSROOT_USR}/include/"
+
+    cp -r "libs/${android_arch}/"* "${CONF_SYSROOT_USR}/lib/"
+    cp -r "include/"* "${CONF_SYSROOT_USR}/include/"
 done
 
 popd

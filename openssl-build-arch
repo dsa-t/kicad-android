@@ -19,6 +19,8 @@ case $CONF_ANDROID_ARCH in
     ;;
 esac
 
+export PATH="${ANDROID_TOOLCHAIN_PATH_SRC}/bin:${ANDROID_TOOLCHAIN_PATH_SRC}/python3/bin/:$ORIGINAL_PATH"
+
 export CC="${CONF_COMPILER_ARCH}-linux-android${CONF_ANDROID_LEVEL}-clang"
 export CXX="${CONF_COMPILER_ARCH}-linux-android${CONF_ANDROID_LEVEL}-clang++"
 export AR="llvm-ar"

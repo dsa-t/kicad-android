@@ -38,7 +38,7 @@ meson setup --prefix "/usr" --buildtype release \
     --cross-file "android-cross-file-${CONF_ANDROID_ARCH}.txt" \
     "build_${CONF_ANDROID_ARCH}" \
     --pkg-config-path="${CONF_SYSROOT_USR}/lib/pkgconfig" \
-    --cmake-prefix-path="${CONF_SYSROOT_USR}" \
+    --cmake-prefix-path="${CONF_SYSROOT_ARCH}" \
     -Dauto_features=disabled \
     -Dcurl:ssl=enabled \
     -Dcurl:openssl=enabled \

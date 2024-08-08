@@ -38,12 +38,13 @@ meson setup --prefix "/usr" --buildtype release \
     --cross-file "android-cross-file-${CONF_ANDROID_ARCH}.txt" \
     "build_${CONF_ANDROID_ARCH}" \
     --pkg-config-path="${CONF_SYSROOT_USR}/lib/pkgconfig" \
-    --cmake-prefix-path="${CONF_SYSROOT_USR}" \
+    --cmake-prefix-path="${CONF_SYSROOT_ARCH}" \
+    -Dpixman:c_args="-Wno-unused-parameter" \
     -Dauto_features=disabled \
     -Dpixman:a64-neon=disabled \
     -Dfreetype=enabled \
     -Dzlib=enabled \
-    -Dpng=enabled
+    -Dpng=enabled --wipe
     
 meson compile -C "build_${CONF_ANDROID_ARCH}"
 meson install --destdir .output -C "build_${CONF_ANDROID_ARCH}"

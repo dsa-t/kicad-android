@@ -15,6 +15,7 @@
 /pcre2/*
 /boost/*
 /sysroot/*
+/toolchain_*/*
 /pcbnewapp/*
 
 android-cross-file*.txt

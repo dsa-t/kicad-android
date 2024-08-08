@@ -2,20 +2,20 @@
 
 set -e
 
-. init-env-arch $1
+. init-env-arch "$1"
 
 pushd protobuf
 
-mkdir -p build_${CONF_ANDROID_ARCH}
-pushd build_${CONF_ANDROID_ARCH}
+mkdir -p "build_${CONF_ANDROID_ARCH}"
+pushd "build_${CONF_ANDROID_ARCH}"
 
 cmake \
-    -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake \
+    -DCMAKE_TOOLCHAIN_FILE="${CONF_BASE_PATH}/android_toolchain.cmake" \
     -DCMAKE_INSTALL_PREFIX="/usr" \
-    -DCMAKE_ANDROID_ARCH_ABI=${CONF_ANDROID_ARCH} \
-    -DANDROID_PLATFORM=${ANDROID_NDK_PLATFORM} \
-    -DANDROID_ABI=${CONF_ANDROID_ARCH} \
-    -DCMAKE_FIND_ROOT_PATH=${CONF_SYSROOT_ARCH} \
+    -DCMAKE_ANDROID_ARCH_ABI="${CONF_ANDROID_ARCH}" \
+    -DANDROID_PLATFORM="${ANDROID_NDK_PLATFORM}" \
+    -DANDROID_ABI="${CONF_ANDROID_ARCH}" \
+    -DCMAKE_FIND_ROOT_PATH="${CONF_SYSROOT_ARCH}" \
     -Dprotobuf_BUILD_TESTS=OFF \
     -Dprotobuf_BUILD_PROTOC_BINARIES=OFF \
     ../cmake

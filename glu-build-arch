@@ -37,7 +37,15 @@ EOF
 
 echo "Running meson setup for build_${CONF_ANDROID_ARCH}"
 
-meson setup --prefix /usr -Dgl_provider=gl -Dgl4es_root="${GL4ES_ROOT}" --cross-file android-cross-file-${CONF_ANDROID_ARCH}.txt build_${CONF_ANDROID_ARCH}
+meson setup \
+    --prefix "/usr" \
+    --cross-file "android-cross-file-${CONF_ANDROID_ARCH}.txt" \
+    "build_${CONF_ANDROID_ARCH}" \
+    -Dgl_provider=gl \
+    -Dgl4es_root="${GL4ES_ROOT}" \
+    -Dc_args="-Wno-tautological-undefined-compare -Wno-self-assign" \
+    -Dcpp_args="-Wno-tautological-undefined-compare -Wno-self-assign" --wipe
+    
 meson compile -C "build_${CONF_ANDROID_ARCH}"
 meson install --destdir .output -C "build_${CONF_ANDROID_ARCH}"
 

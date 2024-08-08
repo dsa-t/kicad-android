@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -e
+
+. init-env-arch "$1"
+
+case $CONF_ANDROID_ARCH in
+
+    arm64-v8a)
+        TOOLCHAIN_ARCH="arm64"
+    ;;
+
+    x86_64)
+        TOOLCHAIN_ARCH="x86_64"
+    ;;
+
+    *)
+        echo "Unsuppoorted target"
+    ;;
+esac
+
+python3 "$ANDROID_NDK_ROOT/build/tools/make_standalone_toolchain.py" --arch "$TOOLCHAIN_ARCH" --api 28 --force --install-dir "$ANDROID_TOOLCHAIN_PATH"
