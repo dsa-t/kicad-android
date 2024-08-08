@@ -9,6 +9,26 @@ jobs:
   build-android:
     runs-on: ubuntu-22.04
     steps:
+      - run: dh -h /
+
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@main
+        with:
+          # this might remove tools that are actually needed,
+          # if set to "true" but frees about 6 GB
+          tool-cache: false
+          
+          # all of these default to true, but feel free to set to
+          # "false" if necessary for your workflow
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: true
+          swap-storage: true
+      
+      - run: dh -h /
+          
       # Install Meson
       - name: Install meson
         run: sudo pip3 install --upgrade meson
@@ -107,8 +127,13 @@ jobs:
             cp _glu_meson_options.txt glu/meson_options.txt
             cp _ngspice_configure.ac ngspice/configure.ac
 
+      - run: dh -h /
+
       - name: Build Application
         run: ./all.sh
+
+      - run: dh -h /
+        if: success() || failure()
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
