@@ -9,7 +9,7 @@ jobs:
   build-android:
     runs-on: ubuntu-22.04
     steps:
-      - run: dh -h /
+      - run: df -h /
 
       - name: Free Disk Space (Ubuntu)
         uses: jlumbroso/free-disk-space@main
@@ -27,7 +27,7 @@ jobs:
           docker-images: true
           swap-storage: true
       
-      - run: dh -h /
+      - run: df -h /
           
       # Install Meson
       - name: Install meson
@@ -127,12 +127,12 @@ jobs:
             cp _glu_meson_options.txt glu/meson_options.txt
             cp _ngspice_configure.ac ngspice/configure.ac
 
-      - run: dh -h /
+      - run: df -h /
 
       - name: Build Application
         run: ./all.sh
 
-      - run: dh -h /
+      - run: df -h /
         if: success() || failure()
 
       - name: Upload Artifact
