@@ -23,6 +23,7 @@ cmake \
 
 cmake --build . -j 24
 make DESTDIR="${CONF_SYSROOT_ARCH}" install
+make clean
 
 popd
 
