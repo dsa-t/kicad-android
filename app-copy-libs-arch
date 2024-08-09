@@ -2,7 +2,7 @@
 
 set -e
 
-. init-env-arch $1
+. init-env-arch "$1"
 
 #pushd kicadapp
 pushd pcbnewapp
@@ -13,7 +13,7 @@ cp -r "${CONF_SYSROOT_USR}/share/kicad/"* ./android/assets/
 
 
 
-mkdir -p ./android/libs/${CONF_ANDROID_ARCH}/
+mkdir -p "./android/libs/${CONF_ANDROID_ARCH}/"
 
 for binary in libkicad_${CONF_ANDROID_ARCH}.so libpcbnew_${CONF_ANDROID_ARCH}.so libkiface_eeschema.so libkiface_pcbnew.so libkiface_gerbview.so; do
     dep_cmd="${NDKDEPENDS} \
@@ -22,18 +22,18 @@ for binary in libkicad_${CONF_ANDROID_ARCH}.so libpcbnew_${CONF_ANDROID_ARCH}.so
         -L ${ANDROID_TOOLCHAIN_PATH}/sysroot/usr/lib/aarch64-linux-android/ \
         ${CONF_SYSROOT_USR}/bin/${binary}"
 
-    echo CMD: $dep_cmd
+    echo "CMD: $dep_cmd"
     
     bin_deps="$(${dep_cmd})"
     
-    echo ${binary} dependencies: ${bin_deps}
+    echo "${binary} dependencies: ${bin_deps}"
     
     all_deps="${all_deps}\n${bin_deps}"
 done
 
 all_deps=$(echo -e "${all_deps}" | sort -u)
 
-echo All Dependencies: ${all_deps}
+echo "All Dependencies: ${all_deps}"
 
 for dep_name in $all_deps
 do
@@ -41,14 +41,14 @@ do
     bin_path="${CONF_SYSROOT_USR}/bin/${dep_name}"
     qt_path="${QT_CUSTOM_DIR}/lib/${dep_name}"
 
-    [ -f ${lib_path} ] && cp -v ${lib_path} ./android/libs/${CONF_ANDROID_ARCH}/
-    [ -f ${bin_path} ] && cp -v ${bin_path} ./android/libs/${CONF_ANDROID_ARCH}/
-    [ -f ${qt_path} ] && cp -v ${qt_path} ./android/libs/${CONF_ANDROID_ARCH}/
+    [ -f "${lib_path}" ] && cp -v "${lib_path}" "./android/libs/${CONF_ANDROID_ARCH}/"
+    [ -f "${bin_path}" ] && cp -v "${bin_path}" "./android/libs/${CONF_ANDROID_ARCH}/"
+    [ -f "${qt_path}" ] && cp -v "${qt_path}" "./android/libs/${CONF_ANDROID_ARCH}/"
 done
 
-for plugin in ${QT_CUSTOM_DIR}/plugins/*/*
+for plugin in "${QT_CUSTOM_DIR}"/plugins/*/*
 do
-    cp -v ${plugin} ./android/libs/${CONF_ANDROID_ARCH}/
+    cp -v "${plugin}" "./android/libs/${CONF_ANDROID_ARCH}/"
 done
 
 
