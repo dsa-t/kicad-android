@@ -4,8 +4,8 @@ A set of scripts to build KiCad on Android using wxQt wxWidgets port.
 
 - A modern Linux Distro (Ubuntu 22.04)
 - Android SDK
-- [Android NDK r25c](https://github.com/android/ndk/wiki/Unsupported-Downloads#r25c) (newer versions won't work)
-- Android 9+ (API Level 28) Emulator or Device. xlocale support doesn't work on lower versions.
+- [Android NDK r25c (25.2.9519653)](https://github.com/android/ndk/wiki/Unsupported-Downloads#r25c) (newer versions won't work)
+- Android 9+ (API Level 28) Emulator or Device. xlocale support doesn't work in older versions.
 - Qt 6.6.2
 - Meson 1.3.0+
 - Ninja 1.8.2+
@@ -46,13 +46,13 @@ cp _ngspice_configure.ac ngspice/configure.ac
 2. Build Qt for Desktop
 3. Build Qt for Android
 
-**Tweak paths to your tooling in `init-env` file.**
-
-# TBD
-
-# Start build
+# Start build (set your paths here)
 
 ```bash
+export QT_HOST_PATH=/usr/local/Qt-6.6.2
+export QT_TARGET_BASE=$HOME/qt6-android
+export ANDROID_SDK_ROOT=$HOME/Android/Sdk
+export ANDROID_NDK_ROOT=$HOME/android-ndk-r25c
 ./all.sh
 ```
 
