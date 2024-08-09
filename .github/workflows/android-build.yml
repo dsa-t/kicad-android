@@ -20,12 +20,14 @@ jobs:
           
           # all of these default to true, but feel free to set to
           # "false" if necessary for your workflow
-          android: false
+          android: true
           dotnet: true
           haskell: true
           large-packages: true
           docker-images: true
           swap-storage: true
+
+      - run: mkdir -p /usr/local/lib/android
       
       - run: df -h /
           
