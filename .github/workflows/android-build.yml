@@ -27,7 +27,7 @@ jobs:
           docker-images: true
           swap-storage: true
 
-      - run: sudo mkdir -p /usr/local/lib/android
+      - run: sudo mkdir -m 777 /usr/local/lib/android
       
       - run: df -h /
           
