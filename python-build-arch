@@ -29,7 +29,7 @@ pushd "$build_dir"
     --enable-shared \
     ac_cv_have_long_long_format=yes ac_cv_file__dev_ptmx=no ac_cv_file__dev_ptc=no
 
-make DESTDIR="${CONF_SYSROOT_ARCH}" -j24 install
+make DESTDIR="${CONF_SYSROOT_ARCH}" INSTSONAME="libpython\$(LDVERSION).so" -j24 install
 
 popd
 

@@ -7,13 +7,16 @@ set -e
 #pushd kicadapp
 pushd pcbnewapp
 
-mkdir -p ./android/assets/
+mkdir -p "pcbnew_${CONF_ANDROID_ARCH}"
+pushd "pcbnew_${CONF_ANDROID_ARCH}"
 
-cp -r "${CONF_SYSROOT_USR}/share/kicad/"* ./android/assets/
+mkdir -p ./assets/
+
+cp -r "${CONF_SYSROOT_USR}/share/kicad/"* ./assets/
 
 
 
-mkdir -p "./android/libs/${CONF_ANDROID_ARCH}/"
+mkdir -p "./libs/${CONF_ANDROID_ARCH}/"
 
 for binary in libkicad_${CONF_ANDROID_ARCH}.so libpcbnew_${CONF_ANDROID_ARCH}.so libkiface_eeschema.so libkiface_pcbnew.so libkiface_gerbview.so; do
     dep_cmd="${NDKDEPENDS} \
@@ -41,15 +44,16 @@ do
     bin_path="${CONF_SYSROOT_USR}/bin/${dep_name}"
     qt_path="${QT_CUSTOM_DIR}/lib/${dep_name}"
 
-    [ -f "${lib_path}" ] && cp -v "${lib_path}" "./android/libs/${CONF_ANDROID_ARCH}/"
-    [ -f "${bin_path}" ] && cp -v "${bin_path}" "./android/libs/${CONF_ANDROID_ARCH}/"
-    [ -f "${qt_path}" ] && cp -v "${qt_path}" "./android/libs/${CONF_ANDROID_ARCH}/"
+    [ -f "${lib_path}" ] && cp -v "${lib_path}" "./libs/${CONF_ANDROID_ARCH}/"
+    [ -f "${bin_path}" ] && cp -v "${bin_path}" "./libs/${CONF_ANDROID_ARCH}/"
+    [ -f "${qt_path}" ] && cp -v "${qt_path}" "./libs/${CONF_ANDROID_ARCH}/"
 done
 
 for plugin in "${QT_CUSTOM_DIR}"/plugins/*/*
 do
-    cp -v "${plugin}" "./android/libs/${CONF_ANDROID_ARCH}/"
+    cp -v "${plugin}" "./libs/${CONF_ANDROID_ARCH}/"
 done
 
+popd
 
 popd

@@ -4,25 +4,6 @@ set -e
 
 . init-env
 
-rm -rf kicadapp/android/
-rm -rf pcbnewapp/android/
-
 for android_arch in $CONF_ANDROID_ARCHES; do
-    ./app-copy-libs-arch $android_arch
+    ./app-build-arch $android_arch
 done
-
-#pushd kicadapp
-
-#androiddeployqt --input android-kicad-deployment-settings.json --output android --android-platform $ANDROID_NDK_PLATFORM --install
-#adb shell monkey -p org.qtproject.example.kicad 1
-
-#popd
-
-pushd pcbnewapp
-
-#"${QT_HOST_PATH}"/bin/androiddeployqt --verbose --input android-pcbnew-deployment-settings.json --output android --android-platform $ANDROID_NDK_PLATFORM --install
-
-"${QT_HOST_PATH}"/bin/androiddeployqt --input android-pcbnew-deployment-settings.json --output android --install
-#adb shell monkey -p org.qtproject.example.pcbnew 1
-
-popd

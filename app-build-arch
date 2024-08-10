@@ -1,0 +1,57 @@
+#!/bin/bash
+
+set -e
+
+. init-env-arch "$1"
+
+./app-copy-libs-arch "$1"
+
+pushd pcbnewapp
+
+cat > "android-pcbnew-deployment-settings_${CONF_ANDROID_ARCH}.json" <<EOF
+{
+   "description": "",
+   "qt": {
+      "${CONF_ANDROID_ARCH}": "${QT_CUSTOM_DIR}"
+   },
+   "qtDataDirectory": {
+      "${CONF_ANDROID_ARCH}": "."
+   },
+   "qtLibExecsDirectory": {
+      "${CONF_ANDROID_ARCH}": "libexec"
+   },
+   "qtLibsDirectory": {
+      "${CONF_ANDROID_ARCH}": "lib"
+   },
+   "qtPluginsDirectory": {
+      "${CONF_ANDROID_ARCH}": "plugins"
+   },
+   "qtQmlDirectory": {
+      "${CONF_ANDROID_ARCH}": "qml"
+   },
+   "sdk": "${ANDROID_SDK_ROOT}",
+   "sdkBuildToolsRevision": "34.0.0",
+   "ndk": "${ANDROID_NDK_ROOT}",
+   "android-package-source-directory": "${PWD}/custom",
+   "toolchain-prefix": "llvm",
+   "tool-prefix": "llvm",
+   "useLLVM": true,
+   "toolchain-version": "clang",
+   "ndk-host": "linux-x86_64",
+   "architectures": { "${CONF_ANDROID_ARCH}":"${CONF_COMPILER_ARCH}-linux-android" },
+   "application-binary": "pcbnew",
+   "qml-skip-import-scanning": true,
+   "rcc-binary" : "${QT_HOST_PATH}/libexec/rcc",
+   "extraPrefixDirs" : [ "${CONF_SYSROOT_ARCH}","${QT_CUSTOM_DIR}" ],
+   "extraLibraryDirs" : [ "${CONF_SYSROOT_ARCH}/usr/lib" ],
+   "zstdCompression": false,
+   "stdcpp-path": "${CONF_SYSROOT_ARCH}/usr/lib"
+}
+EOF
+
+#"${QT_HOST_PATH}"/bin/androiddeployqt --verbose --input android-pcbnew-deployment-settings.json --output android --android-platform $ANDROID_NDK_PLATFORM --install
+
+"${QT_HOST_PATH}"/bin/androiddeployqt --input "android-pcbnew-deployment-settings_${CONF_ANDROID_ARCH}.json" --output "pcbnew_${CONF_ANDROID_ARCH}"
+#adb shell monkey -p org.qtproject.example.pcbnew 1
+
+popd

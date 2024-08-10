@@ -38,7 +38,7 @@ LDFLAGS="-llog -rdynamic -flat_namespace"
     -DKICAD_USE_WXQT=ON \
     -DKICAD_USE_GL4ES=ON \
     -DBoost_COMPILER=clang \
-    -DCMAKE_FIND_DEBUG_MODE=ON \
+    -DCMAKE_FIND_DEBUG_MODE=OFF \
     ..
 
 cmake --build . -j 24
