@@ -43,6 +43,7 @@ LDFLAGS="-llog -rdynamic -flat_namespace"
 
 cmake --build . -j 24
 make DESTDIR="${CONF_SYSROOT_ARCH}" install/strip
+make clean
 
 #cp -r .output/* ${CONF_SYSROOT_USR}/
 
