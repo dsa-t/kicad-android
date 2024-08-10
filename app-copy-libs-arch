@@ -7,6 +7,7 @@ set -e
 #pushd kicadapp
 pushd pcbnewapp
 
+rm -rf "pcbnew_${CONF_ANDROID_ARCH}"
 mkdir -p "pcbnew_${CONF_ANDROID_ARCH}"
 pushd "pcbnew_${CONF_ANDROID_ARCH}"
 
@@ -49,10 +50,10 @@ do
     [ -f "${qt_path}" ] && cp -v "${qt_path}" "./libs/${CONF_ANDROID_ARCH}/"
 done
 
-for plugin in "${QT_CUSTOM_DIR}"/plugins/*/*
-do
-    cp -v "${plugin}" "./libs/${CONF_ANDROID_ARCH}/"
-done
+# for plugin in "${QT_CUSTOM_DIR}"/plugins/*/*
+# do
+#     cp -v "${plugin}" "./libs/${CONF_ANDROID_ARCH}/"
+# done
 
 popd
 
