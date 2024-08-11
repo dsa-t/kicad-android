@@ -62,6 +62,7 @@ jobs:
         uses: jurplel/install-qt-action@v4
         with:
           version: ${{env.QT_VERSION}}
+          setup-python: false
 
       - name: Install Qt (Android x86_64)
         uses: jurplel/install-qt-action@v4
@@ -70,6 +71,7 @@ jobs:
           host: 'linux'
           target: 'android'
           arch: 'android_x86_64'
+          setup-python: false
 
       - name: Install Qt (Android armv8)
         uses: jurplel/install-qt-action@v4
@@ -78,6 +80,7 @@ jobs:
           host: 'linux'
           target: 'android'
           arch: 'android_arm64_v8a'
+          setup-python: false
       
       # Setup env
       - name: Setup env
