@@ -18,7 +18,10 @@ cmake \
     -DCMAKE_FIND_ROOT_PATH="${CONF_SYSROOT_ARCH}" \
     -DCMAKE_C_FLAGS="${CFLAGS}" \
     -DCMAKE_CXX_FLAGS="${CXXFLAGS}" \
+    -DUSE_TK=OFF \
+    -DUSE_FREETYPE=OFF \
     -DBUILD_MODULE_Visualization=OFF \
+    -DBUILD_MODULE_DETools=OFF \
     ..
 
 cmake --build . -j 24
