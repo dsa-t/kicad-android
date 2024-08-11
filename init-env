@@ -33,6 +33,6 @@ export ORIGINAL_PATH="$PATH"
 
 #export CMAKE_BUILD_TYPE="Release"
 
-export PATH="${ANDROID_TOOLCHAIN_PATH_SRC}/bin:${ANDROID_TOOLCHAIN_PATH_SRC}/python3/bin/:$ORIGINAL_PATH"
+export PATH="${ANDROID_TOOLCHAIN_PATH_SRC}/bin:${BASE_PATH}/python/install_host/bin:$ORIGINAL_PATH"
 
 mkdir -p "${CONF_SYSROOT}"

@@ -4,6 +4,20 @@ set -e
 
 . init-env
 
+pushd python
+
+build_dir=build_host
+
+mkdir -p "$build_dir"
+pushd "$build_dir"
+
+../configure --prefix="/"
+
+make DESTDIR="${PWD}/../install_host" -j24 install
+
+popd
+popd
+
 for android_arch in $CONF_ANDROID_ARCHES; do
     ./python-build-arch $android_arch
 done

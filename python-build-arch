@@ -4,6 +4,8 @@ set -e
 
 . init-env-arch $1
 
+BASE_PATH="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
 export CC="${CONF_COMPILER_ARCH}-linux-android${CONF_ANDROID_LEVEL}-clang"
 export CXX="${CONF_COMPILER_ARCH}-linux-android${CONF_ANDROID_LEVEL}-clang++"
 export AR="llvm-ar"
@@ -14,6 +16,10 @@ export READELF="llvm-readelf"
 export CFLAGS="-fPIC"
 export CPPFLAGS="-fPIC"
 
+export PKG_CONFIG_SYSROOT_DIR="${CONF_SYSROOT_ARCH}"
+export PKG_CONFIG_PATH="${CONF_SYSROOT_USR}/lib/pkgconfig"
+export PKG_CONFIG_LIBDIR="${CONF_SYSROOT_USR}/lib/pkgconfig"
+
 pushd python
 
 build_dir=build_${CONF_ANDROID_ARCH}
@@ -23,13 +29,15 @@ pushd "$build_dir"
 
 ../configure \
     --build=x86_64-pc-linux-gnu \
+    --with-build-python="${BASE_PATH}/python/install_host/bin/python3" \
     --host="${WX_CONFHOST}" \
     --prefix="/usr" \
     --disable-ipv6 \
     --enable-shared \
-    ac_cv_have_long_long_format=yes ac_cv_file__dev_ptmx=no ac_cv_file__dev_ptc=no
+    --without-ensurepip \
+    --without-static-libpython
 
-make DESTDIR="${CONF_SYSROOT_ARCH}" INSTSONAME="libpython\$(LDVERSION).so" -j24 install
+make DESTDIR="${CONF_SYSROOT_ARCH}" -j24 install
 
 popd
 

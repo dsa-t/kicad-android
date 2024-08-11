@@ -11,8 +11,8 @@ pushd "build_${CONF_ANDROID_ARCH}"
 
 cp --no-clobber -r ../../kicad-grammar/* ./
 
-CPPFLAGS="-I${CONF_SYSROOT_USR}/include -I${CONF_SYSROOT_USR}/include/wx-3.3 -I${CONF_SYSROOT_USR}/lib/wx/include/qt-unicode-3.3 -I${GHC_ROOT}"
-LDFLAGS="-llog -rdynamic -flat_namespace"
+CPPFLAGS="-fPIC -I${CONF_SYSROOT_USR}/include -I${CONF_SYSROOT_USR}/include/wx-3.3 -I${CONF_SYSROOT_USR}/lib/wx/include/qt-unicode-3.3 -I${GHC_ROOT}"
+LDFLAGS="-llog"
 
 "${QT_CUSTOM_DIR}/bin/qt-cmake" \
     --fresh \

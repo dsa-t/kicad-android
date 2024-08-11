@@ -19,7 +19,7 @@ esac
 
 export ANDROID_TOOLCHAIN_PATH="${BASE_PATH}/toolchain_$CONF_ANDROID_ARCH"
 
-export PATH="${ANDROID_TOOLCHAIN_PATH}/bin:${ANDROID_TOOLCHAIN_PATH}/python3/bin/:$ORIGINAL_PATH"
+export PATH="${ANDROID_TOOLCHAIN_PATH}/bin:${BASE_PATH}/python/install_host/bin:$ORIGINAL_PATH"
 
 #export CC="${CONF_COMPILER_ARCH}-linux-android${CONF_ANDROID_LEVEL}-clang"
 #export CXX="${CONF_COMPILER_ARCH}-linux-android${CONF_ANDROID_LEVEL}-clang++"

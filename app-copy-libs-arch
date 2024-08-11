@@ -15,6 +15,10 @@ mkdir -p ./assets/
 
 cp -r "${CONF_SYSROOT_USR}/share/kicad/"* ./assets/
 
+# Copy Python stdlib
+mkdir -p ./assets/lib
+cp -r "${CONF_SYSROOT_USR}"/lib/python*/ ./assets/lib/
+
 
 
 mkdir -p "./libs/${CONF_ANDROID_ARCH}/"
