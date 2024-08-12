@@ -51,7 +51,19 @@ EOF
 
 #"${QT_HOST_PATH}"/bin/androiddeployqt --verbose --input android-pcbnew-deployment-settings.json --output android --android-platform $ANDROID_NDK_PLATFORM --install
 
-"${QT_HOST_PATH}"/bin/androiddeployqt --input "android-pcbnew-deployment-settings_${CONF_ANDROID_ARCH}.json" --output "pcbnew_${CONF_ANDROID_ARCH}"
-#adb shell monkey -p org.qtproject.example.pcbnew 1
+case $CONF_ANDROID_ARCH in
+
+    arm64-v8a)
+        "${QT_HOST_PATH}"/bin/androiddeployqt --input "android-pcbnew-deployment-settings_${CONF_ANDROID_ARCH}.json" --output "pcbnew_${CONF_ANDROID_ARCH}"
+    ;;
+
+    x86_64)
+        "${QT_HOST_PATH}"/bin/androiddeployqt --input "android-pcbnew-deployment-settings_${CONF_ANDROID_ARCH}.json" --output "pcbnew_${CONF_ANDROID_ARCH}" --install
+        adb shell monkey -p org.qtproject.example.pcbnew 1
+    ;;
+
+    *)
+    ;;
+esac
 
 popd
