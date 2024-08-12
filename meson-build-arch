@@ -7,7 +7,7 @@ set -e
 pushd meson
 
 
-cat > android-cross-file-${CONF_ANDROID_ARCH}.txt <<EOF
+cat > "android-cross-file-${CONF_ANDROID_ARCH}.txt" <<EOF
 [constants]
 ndk_path    = '${ANDROID_NDK_ROOT}'
 toolchain   = '${ANDROID_TOOLCHAIN_PATH}/bin/${CONF_COMPILER_ARCH}-linux-android'
@@ -44,7 +44,6 @@ meson setup --prefix "/usr" --buildtype release \
     -Dcurl:openssl=enabled \
     -Dcurl:libz=enabled \
     -Dcurl:http2=enabled \
-    -Dharfbuzz:icu=enabled \
     -Dharfbuzz:freetype=enabled \
     -Dharfbuzz:tests=disabled
     
