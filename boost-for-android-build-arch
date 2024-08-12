@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -e
+
+. init-env-arch $1
+
+pushd "Boost-for-Android"
+
+cp -r "build/out/${CONF_ANDROID_ARCH}/"* "${CONF_SYSROOT_USR}/"
+cp -r "libiconv-libicu-android/${CONF_ANDROID_ARCH}/lib" "${CONF_SYSROOT_USR}/"
+cp -r "libiconv-libicu-android/${CONF_ANDROID_ARCH}/include" "${CONF_SYSROOT_USR}/"
+cp -r "libiconv-libicu-android/${CONF_ANDROID_ARCH}/bin" "${CONF_SYSROOT_USR}/"
+cp -r "libiconv-libicu-android/${CONF_ANDROID_ARCH}/sbin" "${CONF_SYSROOT_USR}/"
+
+popd

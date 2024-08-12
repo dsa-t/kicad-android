@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -e
+
+. init-env
+
+pushd "Boost-for-Android"
+
+./build-android.sh --arch=x86_64,arm64-v8a --with-iconv --with-libraries=locale "${ANDROID_NDK_ROOT}"
+
+popd
+
+for android_arch in $CONF_ANDROID_ARCHES; do
+    ./boost-for-android-build-arch "$android_arch"
+done

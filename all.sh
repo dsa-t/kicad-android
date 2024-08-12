@@ -7,8 +7,9 @@ set -e
 rm -rf "./toolchain_*"
 
 ./toolchain-init
+./python-build
 
-./icu-build
+./boost-for-android-build
 ./openssl-build
 ./meson-build
 ./gl4es-build
@@ -21,9 +22,7 @@ rm -rf "./toolchain_*"
 ./occt-build # needs freetype
 ./odbc-build
 ./zstd-build
-./boost-build
 ./protobuf-build
-./python-build
 ./wx-build
 ./kicad-build
 
