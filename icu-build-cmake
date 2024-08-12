@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e
+
+. init-env
+
+for android_arch in $CONF_ANDROID_ARCHES; do
+    ./icu-build-arch-cmake $android_arch
+done

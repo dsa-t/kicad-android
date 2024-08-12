@@ -1,0 +1,34 @@
+#!/bin/bash
+
+set -e
+
+. init-env-arch $1
+
+pushd icu-cmake
+
+mkdir -p "build_${CONF_ANDROID_ARCH}"
+pushd "build_${CONF_ANDROID_ARCH}"
+
+cmake --fresh \
+    -GNinja \
+    -DCMAKE_TOOLCHAIN_FILE="${CONF_BASE_PATH}/android_toolchain.cmake" \
+    -DCMAKE_INSTALL_PREFIX="/usr" \
+    -DCMAKE_ANDROID_ARCH_ABI="${CONF_ANDROID_ARCH}" \
+    -DANDROID_PLATFORM="${ANDROID_NDK_PLATFORM}" \
+    -DANDROID_ABI="${CONF_ANDROID_ARCH}" \
+    -DANDROID_STL="c++_shared" \
+    -DCMAKE_FIND_ROOT_PATH="${CONF_SYSROOT_ARCH}" \
+    -DCMAKE_C_FLAGS="${CFLAGS}" \
+    -DCMAKE_CXX_FLAGS="${CXXFLAGS}" \
+    -DBUILD_ICU=ON \
+    -DICU_BUILD_VERSION=74.2 \
+    -DICU_CROSS_ARCH="${CONF_ANDROID_ARCH}" \
+    ..
+
+cmake --build . -j 24
+make DESTDIR="${CONF_SYSROOT_ARCH}" install
+make clean
+
+popd
+
+popd
