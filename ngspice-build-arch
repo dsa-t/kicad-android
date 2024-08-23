@@ -6,6 +6,7 @@ set -e
 
 export CC="${CONF_COMPILER_ARCH}-linux-android${CONF_ANDROID_LEVEL}-clang"
 export CXX="${CONF_COMPILER_ARCH}-linux-android${CONF_ANDROID_LEVEL}-clang++"
+export STRIP="llvm-strip"
 
 pushd ngspice
 
@@ -30,5 +31,7 @@ popd
 
 make -C "./$release" -j24
 make DESTDIR="${CONF_SYSROOT_ARCH}" -C "./$release" -j24 install
+
+"$STRIP" -s "${CONF_SYSROOT_USR}/lib/libngspice.so"
 
 popd
