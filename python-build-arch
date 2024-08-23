@@ -12,6 +12,7 @@ export AR="llvm-ar"
 export AS="llvm-as"
 export RANLIB="llvm-ranlib"
 export READELF="llvm-readelf"
+export STRIP="llvm-strip"
 
 export CFLAGS="-fPIC"
 export CPPFLAGS="-fPIC"
@@ -34,10 +35,16 @@ pushd "$build_dir"
     --prefix="/usr" \
     --disable-ipv6 \
     --enable-shared \
+    --without-doc-strings \
     --without-ensurepip \
     --without-static-libpython
 
+make clean
+
 make DESTDIR="${CONF_SYSROOT_ARCH}" -j24 install
+
+"$STRIP" -s "${CONF_SYSROOT_USR}"/lib/libpython*.so
+"$STRIP" -s "${CONF_SYSROOT_USR}"/lib/python*/lib-dynload/*.so
 
 popd
 

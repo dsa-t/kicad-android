@@ -11,14 +11,22 @@ rm -rf "pcbnew_${CONF_ANDROID_ARCH}"
 mkdir -p "pcbnew_${CONF_ANDROID_ARCH}"
 pushd "pcbnew_${CONF_ANDROID_ARCH}"
 
-mkdir -p ./assets/
+mkdir -p ./assets/share/
 
-cp -r "${CONF_SYSROOT_USR}/share/kicad/"* ./assets/
+cp -r "${CONF_SYSROOT_USR}/share/kicad/"* ./assets/share/
 
 # Copy Python stdlib
-mkdir -p ./assets/lib
-cp -r "${CONF_SYSROOT_USR}"/lib/python*/ ./assets/lib/
+mkdir -p ./assets/share/lib/
+cp -r "${CONF_SYSROOT_USR}"/lib/python*/ ./assets/share/lib/
 
+# Remove unneeded Python files
+rm -rf ./assets/share/lib/python*/test/
+rm -rf ./assets/share/lib/python*/idlelib/
+rm -rf ./assets/share/lib/python*/pydoc_data/
+find ./assets/share/lib/python*/ -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
+
+# Remove unneeded demos
+rm -rf ./assets/share/demos/tiny_tapeout/
 
 
 mkdir -p "./libs/${CONF_ANDROID_ARCH}/"

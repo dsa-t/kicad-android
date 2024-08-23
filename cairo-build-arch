@@ -34,7 +34,8 @@ pkg-config  = 'pkg-config'
 cmake       = 'cmake'
 EOF
 
-meson setup --prefix "/usr" --buildtype release \
+meson setup --prefix "/usr" \
+    --buildtype release \
     --cross-file "android-cross-file-${CONF_ANDROID_ARCH}.txt" \
     "build_${CONF_ANDROID_ARCH}" \
     --pkg-config-path="${CONF_SYSROOT_USR}/lib/pkgconfig" \
