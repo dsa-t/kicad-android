@@ -32,6 +32,8 @@ cat > "android-pcbnew-deployment-settings_${CONF_ANDROID_ARCH}.json" <<EOF
    "sdk": "${ANDROID_SDK_ROOT}",
    "sdkBuildToolsRevision": "34.0.0",
    "ndk": "${ANDROID_NDK_ROOT}",
+   "android-min-sdk-version": "${CONF_ANDROID_LEVEL}",
+   "android-target-sdk-version": "${CONF_ANDROID_LEVEL_TARGET}",
    "android-package-source-directory": "${PWD}/custom",
    "toolchain-prefix": "llvm",
    "tool-prefix": "llvm",
