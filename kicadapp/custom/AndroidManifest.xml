@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.kicad.android"
+    android:installLocation="auto"
+    android:versionCode="1"
+    android:versionName="1.0">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
+    
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true" />
+    <application
+        android:name="org.qtproject.qt.android.bindings.QtApplication"
+        android:hardwareAccelerated="true"
+        android:requestLegacyExternalStorage="true"
+        android:allowBackup="true"
+        android:label="KiCad"
+        android:icon="@mipmap/icon_kicad"
+        android:theme="@android:style/Theme.Light.NoTitleBar"
+        android:fullBackupOnly="false">
+        <activity
+            android:name="org.kicad.android.PcbnewActivity"
+            android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation|mcc|mnc|density"
+            android:label="KiCad PCB Editor"
+            android:icon="@mipmap/icon_pcbnew"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="pcbnew" />
+
+            <meta-data
+                android:name="android.app.arguments"
+                android:value="" />
+
+            <meta-data
+                android:name="android.app.extract_android_style"
+                android:value="minimal" />
+        </activity>
+        <activity
+            android:name="org.kicad.android.EeschemaActivity"
+            android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation|mcc|mnc|density"
+            android:label="KiCad Schematic Editor"
+            android:icon="@mipmap/icon_eeschema"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="eeschema" />
+
+            <meta-data
+                android:name="android.app.arguments"
+                android:value="" />
+
+            <meta-data
+                android:name="android.app.extract_android_style"
+                android:value="minimal" />
+        </activity>
+
+        <activity
+            android:name="org.kicad.android.KicadActivity"
+            android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation|mcc|mnc|density"
+            android:label="KiCad"
+            android:icon="@mipmap/icon_kicad"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="kicad" />
+
+            <meta-data
+                android:name="android.app.arguments"
+                android:value="" />
+
+            <meta-data
+                android:name="android.app.extract_android_style"
+                android:value="minimal" />
+        </activity>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.qtprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/qtprovider_paths"/>
+        </provider>
+    </application>
+</manifest>

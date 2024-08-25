@@ -6,7 +6,7 @@ set -e
 
 ./app-copy-libs-arch "$1"
 
-pushd pcbnewapp
+pushd kicadapp
 
 cat > "android-pcbnew-deployment-settings_${CONF_ANDROID_ARCH}.json" <<EOF
 {
@@ -39,7 +39,7 @@ cat > "android-pcbnew-deployment-settings_${CONF_ANDROID_ARCH}.json" <<EOF
    "toolchain-version": "clang",
    "ndk-host": "linux-x86_64",
    "architectures": { "${CONF_ANDROID_ARCH}":"${CONF_COMPILER_ARCH}-linux-android" },
-   "application-binary": "pcbnew",
+   "application-binary": "kicad",
    "qml-skip-import-scanning": true,
    "rcc-binary" : "${QT_HOST_PATH}/libexec/rcc",
    "extraPrefixDirs" : [ "${CONF_SYSROOT_ARCH}","${QT_CUSTOM_DIR}" ],
@@ -51,7 +51,7 @@ EOF
 
 #"${QT_HOST_PATH}"/bin/androiddeployqt --verbose --input android-pcbnew-deployment-settings.json --output android --android-platform $ANDROID_NDK_PLATFORM --install
 
-"${QT_HOST_PATH}"/bin/androiddeployqt --input "android-pcbnew-deployment-settings_${CONF_ANDROID_ARCH}.json" --output "pcbnew_${CONF_ANDROID_ARCH}"
-#adb shell monkey -p org.qtproject.example.pcbnew 1
+"${QT_HOST_PATH}"/bin/androiddeployqt --input "android-pcbnew-deployment-settings_${CONF_ANDROID_ARCH}.json" --output "app_${CONF_ANDROID_ARCH}" --install || echo "Failed to deploy app"
+#adb shell monkey -p org.kicad.android 1 || echo "Failed to run app"
 
 popd

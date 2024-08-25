@@ -16,7 +16,7 @@
 /boost/*
 /sysroot/*
 /toolchain_*/*
-/pcbnewapp/*
+/kicadapp/app_*
 
 android-cross-file*.txt
 
