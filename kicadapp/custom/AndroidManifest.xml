@@ -39,11 +39,11 @@
 
             <meta-data
                 android:name="android.app.lib_name"
-                android:value="pcbnew" />
+                android:value="kicad" />
 
             <meta-data
                 android:name="android.app.arguments"
-                android:value="" />
+                android:value="-f pcb" />
 
             <meta-data
                 android:name="android.app.extract_android_style"
@@ -64,11 +64,61 @@
 
             <meta-data
                 android:name="android.app.lib_name"
-                android:value="eeschema" />
+                android:value="kicad" />
 
             <meta-data
                 android:name="android.app.arguments"
-                android:value="" />
+                android:value="-f sch" />
+
+            <meta-data
+                android:name="android.app.extract_android_style"
+                android:value="minimal" />
+        </activity>
+        <activity
+            android:name="org.kicad.android.GerbviewActivity"
+            android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation|mcc|mnc|density"
+            android:label="KiCad Gerber Viewer"
+            android:icon="@mipmap/icon_gerbview"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="kicad" />
+
+            <meta-data
+                android:name="android.app.arguments"
+                android:value="-f gerb" />
+
+            <meta-data
+                android:name="android.app.extract_android_style"
+                android:value="minimal" />
+        </activity>
+        <activity
+            android:name="org.kicad.android.PcbcalcActivity"
+            android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation|mcc|mnc|density"
+            android:label="KiCad PCB Calculator"
+            android:icon="@mipmap/icon_pcbcalculator"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="kicad" />
+
+            <meta-data
+                android:name="android.app.arguments"
+                android:value="-f calc" />
 
             <meta-data
                 android:name="android.app.extract_android_style"

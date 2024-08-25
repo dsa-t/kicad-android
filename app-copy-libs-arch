@@ -30,7 +30,7 @@ rm -rf ./assets/share/demos/tiny_tapeout/
 
 mkdir -p "./libs/${CONF_ANDROID_ARCH}/"
 
-for binary in libkicad_${CONF_ANDROID_ARCH}.so libpcbnew_${CONF_ANDROID_ARCH}.so libeeschema_${CONF_ANDROID_ARCH}.so libkiface_eeschema.so libkiface_pcbnew.so libkiface_gerbview.so; do
+for binary in libkicad_${CONF_ANDROID_ARCH}.so libkiface_eeschema.so libkiface_pcbnew.so libkiface_gerbview.so libkiface_pcb_calculator.so; do
     dep_cmd="${NDKDEPENDS} \
         -L ${CONF_SYSROOT_USR}/lib \
         -L ${QT_CUSTOM_DIR}/lib \
