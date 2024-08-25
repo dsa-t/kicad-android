@@ -54,6 +54,6 @@ EOF
 #"${QT_HOST_PATH}"/bin/androiddeployqt --verbose --input android-pcbnew-deployment-settings.json --output android --android-platform $ANDROID_NDK_PLATFORM --install
 
 "${QT_HOST_PATH}"/bin/androiddeployqt --input "android-pcbnew-deployment-settings_${CONF_ANDROID_ARCH}.json" --output "app_${CONF_ANDROID_ARCH}" --install || echo "Failed to deploy app"
-#adb shell monkey -p org.kicad.android 1 || echo "Failed to run app"
+#adb shell am start -n org.kicad.android/org.kicad.android.KicadActivity || echo "Failed to run app"
 
 popd
