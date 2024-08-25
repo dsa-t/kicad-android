@@ -18,6 +18,10 @@ cp -r "${CONF_SYSROOT_USR}/share/kicad/"* ./assets/share/
 mkdir -p ./assets/share/lib/
 cp -r "${CONF_SYSROOT_USR}"/lib/python*/ ./assets/share/lib/
 
+# Copy curl certificates
+#curl -L -o "${CONF_BASE_PATH}/cacert.pem" "https://curl.se/ca/cacert.pem"
+cp "${CONF_BASE_PATH}/cacert.pem" ./assets/share/lib/
+
 # Remove unneeded Python files
 rm -rf ./assets/share/lib/python*/test/
 rm -rf ./assets/share/lib/python*/idlelib/
