@@ -6,9 +6,9 @@ set -e
 
 pushd kicadapp
 
-rm -rf "kicad_${CONF_ANDROID_ARCH}"
-mkdir -p "kicad_${CONF_ANDROID_ARCH}"
-pushd "kicad_${CONF_ANDROID_ARCH}"
+rm -rf "app_${CONF_ANDROID_ARCH}"
+mkdir -p "app_${CONF_ANDROID_ARCH}"
+pushd "app_${CONF_ANDROID_ARCH}"
 
 mkdir -p ./assets/share/
 
