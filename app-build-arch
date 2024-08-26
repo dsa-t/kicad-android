@@ -8,7 +8,7 @@ set -e
 
 pushd kicadapp
 
-cat > "android-pcbnew-deployment-settings_${CONF_ANDROID_ARCH}.json" <<EOF
+cat > "android-kicad-deployment-settings_${CONF_ANDROID_ARCH}.json" <<EOF
 {
    "description": "",
    "qt": {
@@ -51,9 +51,9 @@ cat > "android-pcbnew-deployment-settings_${CONF_ANDROID_ARCH}.json" <<EOF
 }
 EOF
 
-#"${QT_HOST_PATH}"/bin/androiddeployqt --verbose --input android-pcbnew-deployment-settings.json --output android --android-platform $ANDROID_NDK_PLATFORM --install
+#"${QT_HOST_PATH}"/bin/androiddeployqt --verbose --input android-kicad-deployment-settings.json --output android --android-platform $ANDROID_NDK_PLATFORM --install
 
-"${QT_HOST_PATH}"/bin/androiddeployqt --input "android-pcbnew-deployment-settings_${CONF_ANDROID_ARCH}.json" --output "app_${CONF_ANDROID_ARCH}" --install || echo "Failed to deploy app"
+"${QT_HOST_PATH}"/bin/androiddeployqt --input "android-kicad-deployment-settings_${CONF_ANDROID_ARCH}.json" --output "app_${CONF_ANDROID_ARCH}" --install || echo "Failed to deploy app"
 #adb shell am start -n org.kicad.android/org.kicad.android.KicadActivity || echo "Failed to run app"
 
 popd
