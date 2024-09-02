@@ -28,9 +28,10 @@ mkdir -p unixODBC && curl -L -o - 'ftp://ftp.unixodbc.org/pub/unixODBC/unixODBC-
 mkdir -p zstd && curl -L -o - 'https://github.com/facebook/zstd/releases/download/v1.5.6/zstd-1.5.6.tar.gz' | tar -xz --strip-components=1 -C zstd
 mkdir -p protobuf && curl -L -o - 'https://github.com/protocolbuffers/protobuf/archive/refs/tags/v3.12.4.tar.gz' | tar -xz --strip-components=1 -C protobuf
 mkdir -p python && curl -L -o - 'https://www.python.org/ftp/python/3.13.0/Python-3.13.0rc1.tgz' | tar -xz --strip-components=1 -C python
-mkdir -p openssl && curl -L -o - 'https://github.com/openssl/openssl/releases/download/openssl-3.3.1/openssl-3.3.1.tar.gz' | tar -xz --strip-components=1 -C openssl          
+mkdir -p openssl && curl -L -o - 'https://github.com/openssl/openssl/releases/download/openssl-3.3.1/openssl-3.3.1.tar.gz' | tar -xz --strip-components=1 -C openssl
 mkdir -p icu && curl -L -o - 'https://github.com/unicode-org/icu/releases/download/release-73-2/icu4c-73_2-src.tgz' | tar -xz --strip-components=1 -C icu
 mkdir -p pcre2 && curl -L -o - 'https://github.com/PCRE2Project/pcre2/releases/download/pcre2-10.44/pcre2-10.44.tar.gz' | tar -xz --strip-components=1 -C pcre2
+mkdir -p boost && curl -L -o - 'https://github.com/boostorg/boost/releases/download/boost-1.85.0/boost-1.85.0-cmake.tar.gz' | tar -xz --strip-components=1 -C boost
 ```
 
 # Apply patches
