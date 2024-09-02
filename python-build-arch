@@ -28,6 +28,8 @@ build_dir=build_${CONF_ANDROID_ARCH}
 mkdir -p "$build_dir"
 pushd "$build_dir"
 
+# mimalloc throws SIGSYS in prim.c at mi_prim_open("/proc/sys/vm/overcommit_memory", O_RDONLY); on Android 9
+
 ../configure \
     --build=x86_64-pc-linux-gnu \
     --with-build-python="${BASE_PATH}/python/install_host/bin/python3" \
@@ -35,6 +37,7 @@ pushd "$build_dir"
     --prefix="/usr" \
     --disable-ipv6 \
     --enable-shared \
+    --without-mimalloc \
     --without-doc-strings \
     --without-ensurepip \
     --without-static-libpython
