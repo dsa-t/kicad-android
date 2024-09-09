@@ -7,7 +7,7 @@ export CONF_BASE_PATH="$BASE_PATH"
 #export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
 
 export PATCHELF="${CONF_BASE_PATH}/patchelf"
-export GL4ES_ROOT="${CONF_BASE_PATH}/gl4es-114-extra"
+export GL4ES_ROOT="${CONF_BASE_PATH}/gl4es"
 #export QT5_CUSTOM_DIR="${CONF_BASE_PATH}/qt/5.15.2/android"
 
 export WX_ROOT="${CONF_BASE_PATH}/wxWidgets"

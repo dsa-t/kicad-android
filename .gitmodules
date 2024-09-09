@@ -22,3 +22,7 @@
 	path = glu
 	url = https://gitlab.freedesktop.org/mesa/glu.git
 	branch = a2b96c7bba8db8fec3e02fb4227a7f7b02cabad1
+[submodule "gl4es"]
+	path = gl4es
+	url = https://github.com/dsa-t/gl4es.git
+	branch = kicad-android
