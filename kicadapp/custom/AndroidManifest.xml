@@ -23,7 +23,7 @@
         android:allowBackup="true"
         android:label="KiCad"
         android:icon="@mipmap/icon_kicad"
-        android:theme="@android:style/Theme.Light.NoTitleBar"
+        android:theme="@style/Theme.KiCadApp"
         android:fullBackupOnly="false">
 
         <activity
